@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "outFile": "dist/main.js",
+        "module": "AMD",
+        "lib": ["es5", "es6", "dom"],
+        "rootDir": "./src/",
+    }
+}
