@@ -1,27 +1,30 @@
+import { UpdateAction } from "./action";
+import { Dooble } from "./dooble";
 import { redraw } from "./draw";
 import { createReducer, RectState } from "./rect/rectstate";
 
 export const loop = (context: CanvasRenderingContext2D) => {
-    // Create initial state
-    let lastUpdateTime = 0;
-    
     const initalState: RectState = {
         leftPos: 150,
         velocity: 1
     }
     
-    let currentState = initalState;
-    
-    const rectStateReducer = createReducer(context);
+    const dooble = new Dooble<RectState>(
+        initalState, 
+        [createReducer(context)], 
+        []
+    );
 
+    let lastUpdateTime = 0;
     // The loop
     const rafCallback = (now: number) => {
         const delta = now - lastUpdateTime;
         lastUpdateTime = now;
 
-        currentState = rectStateReducer(currentState, delta);
+        dooble.dispatch(new UpdateAction({delta}));
 
-        redraw(context, currentState);
+        redraw(context, dooble.state);
+
         window.requestAnimationFrame(rafCallback);
     };
 
