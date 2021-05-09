@@ -5,7 +5,7 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "outFile": "dist/main.js",
-        "module": "AMD",
+        "module": "esnext",
         "lib": ["es5", "es6", "dom"],
         "rootDir": "./src/",
     }
