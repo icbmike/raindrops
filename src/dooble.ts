@@ -1,8 +1,6 @@
-import { Action, RandomTickAction } from "./action";
+import { Action } from "./action";
 import { Reducer } from "./reducer";
 import { connectable, Observable, Subject } from "rxjs";
-import { connect, filter, map, mergeMap, multicast, publish, tap } from "rxjs/operators";
-import { createRandomEvents } from "./createRandomEvents";
 
 export class Dooble<TState> {
     private subject: Subject<Action> = new Subject();
@@ -12,7 +10,7 @@ export class Dooble<TState> {
         const multicast$ = connectable(this.subject)
 
         stories
-            .map(story => story.createStory(multicast$))
+            .map(story => story(multicast$))
             .forEach(obs$ => obs$.subscribe(action => this.dispatch(action)));
 
         multicast$.connect();
@@ -26,17 +24,6 @@ export class Dooble<TState> {
 }
 
 export interface Story {
-    createStory(actions$: Observable<Action>) : Observable<Action>
-}
-
-export class OneSecondStory implements Story {
-    createStory(actions$: Observable<Action>){
-        return actions$.pipe(
-            filter(action => action.type === 'StartAction'),
-            mergeMap(_ => createRandomEvents(5000)),
-            tap(_ => console.log('An event!')),
-            map(tick => new RandomTickAction())
-        );
-    }
+    (actions$: Observable<Action>) : Observable<Action>
 }
 

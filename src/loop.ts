@@ -1,7 +1,8 @@
 import { StartAction, UpdateAction } from "./action";
-import { Dooble, OneSecondStory } from "./dooble";
+import { Dooble } from "./dooble";
 import { redraw } from "./draw";
 import { createReducer, RectState } from "./rect/rectstate";
+import { RandomTicks$ } from "./stories";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: RectState = {
@@ -12,7 +13,7 @@ export const loop = (context: CanvasRenderingContext2D) => {
     const dooble = new Dooble<RectState>(
         initalState, 
         [createReducer(context)], 
-        [new OneSecondStory()]
+        [RandomTicks$]
     );
 
     let lastUpdateTime = 0;
