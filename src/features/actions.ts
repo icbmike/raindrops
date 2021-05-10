@@ -10,11 +10,13 @@ export class StartAction implements Action {
     readonly type = 'StartAction';
 }
 
-export class RandomTickAction implements Action {
+export class NewRaindropAction implements Action {
     readonly type = 'RandomTickAction';
+
+    constructor (public payload: { x: number, y: number }) {}
 }
 
 export type Actions = 
     UpdateAction |
     StartAction |
-    RandomTickAction;
+    NewRaindropAction;

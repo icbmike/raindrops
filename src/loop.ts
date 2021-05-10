@@ -1,19 +1,24 @@
 import { Dooble } from "./dooble/dooble";
 import { redraw } from "./draw";
-import { createReducer, RectState } from "./features/rectstate";
-import { RandomTicks$ } from "./features/random_ticks.story";
+import { WorldState } from "./features/worldstate";
+import { createReducer } from "./features/update.reducer";
+import { createRandomTicks } from "./features/randomticks.story";
 import { UpdateAction, StartAction } from "./features/actions";
+import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrop";
 
 export const loop = (context: CanvasRenderingContext2D) => {
-    const initalState: RectState = {
-        leftPos: 150,
-        velocity: 1
+    const initalState: WorldState = {
+        rect: {
+            leftPos: 150,
+            velocity: 1
+        },
+        raindrops: []
     }
     
-    const dooble = new Dooble<RectState>(
+    const dooble = new Dooble<WorldState>(
         initalState, 
-        [createReducer(context)], 
-        [RandomTicks$]
+        [createReducer(context), raindropUpdateReducer, raindropTickReducer], 
+        [createRandomTicks(context)]
     );
 
     let lastUpdateTime = 0;
