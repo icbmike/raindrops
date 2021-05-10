@@ -4,9 +4,9 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "outFile": "dist/main.js",
-        "module": "esnext",
-        "lib": ["es5", "es6", "dom"],
-        "rootDir": "./src/",
+        "allowJs": true,
+        "outDir": "dist",
+        "module": "es6",
+        "moduleResolution": "node",
     }
 }
