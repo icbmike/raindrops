@@ -1,5 +1,5 @@
-import { Reducer } from '../reducer';
-import { Action, Actions, UpdateAction } from '../action';
+import { Reducer } from '../dooble/reducer';
+import { Actions } from './actions';
 
 export interface RectState {
     leftPos: number;

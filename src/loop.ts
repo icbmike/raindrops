@@ -1,8 +1,8 @@
-import { StartAction, UpdateAction } from "./action";
-import { Dooble } from "./dooble";
+import { Dooble } from "./dooble/dooble";
 import { redraw } from "./draw";
-import { createReducer, RectState } from "./rect/rectstate";
-import { RandomTicks$ } from "./stories";
+import { createReducer, RectState } from "./features/rectstate";
+import { RandomTicks$ } from "./features/random_ticks.story";
+import { UpdateAction, StartAction } from "./features/actions";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: RectState = {

@@ -1,4 +1,4 @@
-import { RectState } from "./rect/rectstate";
+import { RectState } from "./features/rectstate";
 
 export function redraw(context: CanvasRenderingContext2D, state: RectState) {
     // clear the canvas

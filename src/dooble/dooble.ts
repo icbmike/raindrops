@@ -1,6 +1,7 @@
 import { Action } from "./action";
 import { Reducer } from "./reducer";
-import { connectable, Observable, Subject } from "rxjs";
+import { connectable, Subject } from "rxjs";
+import { Story } from "./story";
 
 export class Dooble<TState> {
     private subject: Subject<Action> = new Subject();
@@ -22,8 +23,3 @@ export class Dooble<TState> {
         this.subject.next(action);
     }
 }
-
-export interface Story {
-    (actions$: Observable<Action>) : Observable<Action>
-}
-

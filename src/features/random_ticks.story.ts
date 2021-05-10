@@ -1,7 +1,8 @@
 import { Observable } from "rxjs";
 import { filter, mergeMap, tap, map } from "rxjs/operators";
-import { Action, RandomTickAction } from "./action";
-import { createRandomEvents } from "./createRandomEvents";
+import { Action } from "../dooble/action";
+import { createRandomEvents } from "../createRandomEvents";
+import { RandomTickAction } from "./actions";
 
 export const RandomTicks$ = (actions$: Observable<Action>) =>
     actions$.pipe(

@@ -1,6 +1,4 @@
-export interface Action {
-    readonly type: string;
-}
+import { Action } from "../dooble/action";
 
 export class UpdateAction implements Action {
     readonly type = 'UpdateAction';
