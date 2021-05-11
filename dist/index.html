@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raindrops</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            padding: 50px;
+            height: 100vh;
+        }
+
+        .canvas-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <canvas id="canvas" style="background-color: black;"></canvas>
+        <button onclick="goFullscreen()">FullScreen [ ]</button>
+    </div>
+    <script src="main.js"></script>
+    <script>
+        function goFullscreen(){
+            document.getElementById('canvas').requestFullscreen();
+        }
+    </script>
+</body>
