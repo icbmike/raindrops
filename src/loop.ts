@@ -1,10 +1,10 @@
 import { Dooble } from "./dooble/dooble";
 import { redraw } from "./draw";
 import { WorldState } from "./features/worldstate";
-import { createReducer } from "./features/update.reducer";
+import { createReducer } from "./features/moving-rect/update.reducer";
 import { createRandomTicks } from "./features/randomticks.story";
-import { UpdateAction, StartAction } from "./features/actions";
 import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrop";
+import { StartAction, UpdateAction } from "./dooble/action";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: WorldState = {
@@ -14,7 +14,7 @@ export const loop = (context: CanvasRenderingContext2D) => {
         },
         raindrops: []
     }
-    
+     
     const dooble = new Dooble<WorldState>(
         initalState, 
         [createReducer(context), raindropUpdateReducer, raindropTickReducer], 

@@ -1,5 +1,7 @@
+import { UpdateAction } from "../dooble/action";
 import { on } from "../dooble/reducer";
-import { NewRaindropAction, UpdateAction } from "./actions";
+import { NewRaindropAction } from "./actions";
+
 import { WorldState } from "./worldstate";
 
 export interface Raindrop {
