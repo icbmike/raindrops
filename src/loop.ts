@@ -5,6 +5,9 @@ import { createRandomTicks } from "./features/randomticks.story";
 import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrops/raindrop";
 import { StartAction, UpdateAction } from "./dooble/action";
 import { rectReducer } from "./features/moving-rect/update.reducer";
+import { drawRect } from "./features/moving-rect/draw-rect";
+import { drawRaindrops } from "./features/raindrops/draw";
+import { drawFPS } from "./draw/draw-fps";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: WorldState = {
@@ -37,7 +40,11 @@ export const loop = (context: CanvasRenderingContext2D) => {
 
         dooble.dispatch(new UpdateAction({delta}));
 
-        redraw(context, dooble.state);
+        redraw(context, dooble.state, [
+            drawRect,
+            drawRaindrops,
+            drawFPS
+        ]);
 
         window.requestAnimationFrame(rafCallback);
     };

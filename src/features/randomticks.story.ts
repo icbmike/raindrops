@@ -4,7 +4,6 @@ import { Action } from "../dooble/action";
 import { createRandomEvents } from "../createRandomEvents";
 import { NewRaindropAction } from "./raindrops/actions";
 
-
 export const createRandomTicks = (ctx: CanvasRenderingContext2D) => {
     return(actions$: Observable<Action>) =>
         actions$.pipe(
