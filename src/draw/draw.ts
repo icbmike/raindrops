@@ -1,4 +1,4 @@
-import { WorldState } from "./features/worldstate";
+import { WorldState } from "../features/worldstate";
 
 let lastFrame = Date.now();
 export function redraw(context: CanvasRenderingContext2D, state: WorldState) {

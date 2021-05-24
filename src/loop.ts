@@ -1,10 +1,10 @@
 import { Dooble } from "./dooble/dooble";
-import { redraw } from "./draw";
+import { redraw } from "./draw/draw";
 import { WorldState } from "./features/worldstate";
-import { createReducer } from "./features/moving-rect/update.reducer";
 import { createRandomTicks } from "./features/randomticks.story";
-import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrop";
+import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrops/raindrop";
 import { StartAction, UpdateAction } from "./dooble/action";
+import { rectReducer } from "./features/moving-rect/update.reducer";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: WorldState = {
@@ -12,16 +12,24 @@ export const loop = (context: CanvasRenderingContext2D) => {
             leftPos: 150,
             velocity: 1
         },
-        raindrops: []
+        raindrops: [],
+        canvasContext: context
     }
      
     const dooble = new Dooble<WorldState>(
         initalState, 
-        [createReducer(context), raindropUpdateReducer, raindropTickReducer], 
-        [createRandomTicks(context)]
+        [
+            rectReducer, 
+            raindropUpdateReducer, 
+            raindropTickReducer
+        ], 
+        [
+            createRandomTicks(context)
+        ]
     );
 
     let lastUpdateTime = 0;
+    
     // The loop
     const rafCallback = (now: number) => {
         const delta = (now - lastUpdateTime);

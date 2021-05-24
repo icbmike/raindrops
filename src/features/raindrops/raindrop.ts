@@ -1,8 +1,8 @@
-import { UpdateAction } from "../dooble/action";
-import { on } from "../dooble/reducer";
+import { UpdateAction } from "../../dooble/action";
+import { on } from "../../dooble/reducer";
 import { NewRaindropAction } from "./actions";
 
-import { WorldState } from "./worldstate";
+import { WorldState } from "../worldstate";
 
 export interface Raindrop {
     x: number;
