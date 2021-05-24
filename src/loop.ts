@@ -24,7 +24,7 @@ export const loop = (context: CanvasRenderingContext2D) => {
     let lastUpdateTime = 0;
     // The loop
     const rafCallback = (now: number) => {
-        const delta = now - lastUpdateTime;
+        const delta = (now - lastUpdateTime);
         lastUpdateTime = now;
 
         dooble.dispatch(new UpdateAction({delta}));
