@@ -1,37 +1,22 @@
 import { UpdateAction } from '../../dooble/action';
-import { on, Reducer } from '../../dooble/reducer';
+import { on } from '../../dooble/reducer';
 import { WorldState } from '../worldstate';
 
 export const rectReducer = 
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {
+        const { up, left, right, down } = current.input;
         const { delta } = action.payload;
         const { rect } = current;
         const { canvas } = current.canvasContext;
 
-        if (rect.leftPos >= canvas.width - 250) {
-            return {
-                ...current,
-                rect: {
-                    leftPos: rect.leftPos - 1 * delta,
-                    velocity: -1
-                }
-            };
-        }
-        else if (rect.leftPos < 150) {
-            return {
-                ...current,
-                rect: {
-                    leftPos: rect.leftPos + 1 * delta,
-                    velocity: 1
-                }
-            };
-        }
-
+        const newLeft =  ((left ? -1 : 0) + (right ? 1 : 0)) * delta;
+        const newTop =  ((up ? -1 : 0) + (down ? 1 : 0)) * delta;
+        
         return {
             ...current,
             rect: {
-                ...current.rect,
-                leftPos: rect.leftPos + rect.velocity * delta
+                leftPos: Math.max(150, Math.min(canvas.width - 250, rect.leftPos + newLeft)),
+                topPos: Math.max(150, Math.min(canvas.height - 250, rect.topPos + newTop))
             }
         };
     }

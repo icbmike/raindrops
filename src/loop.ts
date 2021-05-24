@@ -8,15 +8,22 @@ import { rectReducer } from "./features/moving-rect/update.reducer";
 import { drawRect } from "./features/moving-rect/draw-rect";
 import { drawRaindrops } from "./features/raindrops/draw";
 import { drawFPS } from "./draw/draw-fps";
+import { inputReducer, inputStory } from "./input";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: WorldState = {
         rect: {
             leftPos: 150,
-            velocity: 1
+            topPos: 150
         },
         raindrops: [],
-        canvasContext: context
+        canvasContext: context,
+        input: {
+            down: false,
+            left: false,
+            right: false,
+            up: false
+        }
     }
      
     const dooble = new Dooble<WorldState>(
@@ -24,10 +31,12 @@ export const loop = (context: CanvasRenderingContext2D) => {
         [
             rectReducer, 
             raindropUpdateReducer, 
-            raindropTickReducer
+            raindropTickReducer,
+            inputReducer
         ], 
         [
-            createRandomTicks(context)
+            createRandomTicks(context),
+            inputStory
         ]
     );
 

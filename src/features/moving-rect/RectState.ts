@@ -1,5 +1,5 @@
 
 export interface RectState {
     leftPos: number;
-    velocity: number;
+    topPos: number;
 }
