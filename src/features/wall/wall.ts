@@ -23,5 +23,11 @@ export const walls: Wall[] = [
         y: 0,
         height: 600,
         width: 10
-    }
-]
+    },
+    {
+        x: 0,
+        y: 800,
+        height: 10,
+        width: 400
+    },
+];
