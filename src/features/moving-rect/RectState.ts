@@ -1,5 +1,7 @@
 
 export interface RectState {
-    leftPos: number;
-    topPos: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
 }

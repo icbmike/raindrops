@@ -1,6 +1,8 @@
 import { WorldState } from "../worldstate";
 
 export const drawRect = (context: CanvasRenderingContext2D, state: WorldState) => {
+    const { x, y, width, height} = state.rect;
+    
     context.fillStyle = 'white';
-    context.fillRect(state.rect.leftPos, state.rect.topPos, 100, 100);
+    context.fillRect(x, y, width, height);
 }

@@ -15,8 +15,9 @@ export const rectReducer =
         return {
             ...current,
             rect: {
-                leftPos: Math.max(150, Math.min(canvas.width - 250, rect.leftPos + newLeft)),
-                topPos: Math.max(150, Math.min(canvas.height - 250, rect.topPos + newTop))
+                ...rect,
+                x: Math.max(150, Math.min(canvas.width - 250, rect.x + newLeft)),
+                y: Math.max(150, Math.min(canvas.height - 250, rect.y + newTop))
             }
         };
     }

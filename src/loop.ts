@@ -9,12 +9,16 @@ import { drawRect } from "./features/moving-rect/draw-rect";
 import { drawRaindrops } from "./features/raindrops/draw";
 import { drawFPS } from "./draw/draw-fps";
 import { inputReducer, inputStory } from "./input";
+import { walls } from "./features/wall/wall";
+import { drawWalls } from "./features/wall/draw";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: WorldState = {
         rect: {
-            leftPos: 150,
-            topPos: 150
+            x: 150,
+            y: 150,
+            height: 20,
+            width: 20
         },
         raindrops: [],
         canvasContext: context,
@@ -23,7 +27,8 @@ export const loop = (context: CanvasRenderingContext2D) => {
             left: false,
             right: false,
             up: false
-        }
+        },
+        walls
     }
      
     const dooble = new Dooble<WorldState>(
@@ -50,8 +55,9 @@ export const loop = (context: CanvasRenderingContext2D) => {
         dooble.dispatch(new UpdateAction({delta}));
 
         redraw(context, dooble.state, [
-            drawRect,
             drawRaindrops,
+            drawRect,
+            drawWalls,
             drawFPS
         ]);
 
