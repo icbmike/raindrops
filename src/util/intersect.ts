@@ -1,4 +1,5 @@
 import { any } from "./any";
+import { dot, Down, Left, Right, unit, Up, Vector } from "./vector";
 
 interface Rect {
     x:number;
@@ -58,58 +59,70 @@ function bottomLine(rect: Rect) : RectSide {
     }
 }
 
-const lineIntersects = (side1: RectSide, side2: RectSide) : boolean => {
-    const horizontalLine = (side1.side == 'Top' || side1.side == 'Bottom') ? side1 : side2;
-    const verticalLine = (side1.side == 'Top' || side1.side == 'Bottom') ? side2 : side1;
+const intersects = (side: RectSide, line: Line) : boolean => {
+    const horizontalLine = (side.side == 'Top' || side.side == 'Bottom') ? side : line;
+    const verticalLine = (side.side == 'Top' || side.side == 'Bottom') ? line : side;
 
-    return verticalLine.x1 > horizontalLine.x1 
-        && verticalLine.x1 < horizontalLine.x2
+    return verticalLine.x1 >= horizontalLine.x1 
+        && verticalLine.x1 <= horizontalLine.x2
         
-        && horizontalLine.y1 > verticalLine.y1
-        && horizontalLine.y1 < verticalLine.y2;
+        && horizontalLine.y1 >= verticalLine.y1
+        && horizontalLine.y1 <= verticalLine.y2;
 }
 
-export const findIntersection = (rects: Rect[], source: Rect) : RectSide | undefined => {
+export const findIntersection = (rects: Rect[], source: Rect, moveVector: Vector) : RectSide | undefined => {
     for (let i = 0; i < rects.length; i++) {
         const rect = rects[i];
         
-        const side: RectSide[] | undefined = [
-            [
-                leftLine(rect), 
-                topLine(source)
-            ],
-            [
-                leftLine(rect), 
-                bottomLine(source)
-            ],
-            [
-                rightLine(rect),
-                topLine(source)
-            ],
-            [
-                rightLine(rect),
-                bottomLine(source)
-            ],
-            [
-                topLine(rect),
-                leftLine(source), 
-            ],
-            [
-                bottomLine(rect),
-                leftLine(source), 
-            ],
-            [
-                topLine(rect),
-                rightLine(source),
-            ],
-            [
-                bottomLine(rect),
-                rightLine(source),
-            ],
-        ].find(([l1, l2]) => lineIntersects(l1, l2))
+        // Is it moving horizontally
+        if(dot(unit(moveVector), Left) > 0){
+            const rightSide = rightLine(rect);
 
-        if(side)
-            return side[0];
+            if(intersects(rightSide, {
+                x1: source.x + moveVector.x,
+                y1: source.y + source.height / 2,
+                x2: source.x,
+                y2: source.y + source.height / 2,
+            })){
+                return rightSide;
+            }
+        } else if(dot(unit(moveVector), Right) > 0) {
+            const leftSide = leftLine(rect);
+
+            if(intersects(leftSide, {
+                x1: source.x + source.width,
+                y1: source.y + source.height / 2,
+                x2: source.x + source.width + moveVector.x,
+                y2: source.y + source.height / 2,
+            })){
+                return leftSide;
+            }
+        }
+
+        // Is it moving vertically
+        if(dot(unit(moveVector), Up) > 0){
+            const bottomSide = bottomLine(rect);
+
+            if(intersects(bottomSide, {
+                x1: source.x + source.width / 2,
+                y1: source.y + moveVector.y,
+                x2: source.x + source.width / 2,
+                y2: source.y,
+            })){
+                return bottomSide;
+            }
+        } else if(dot(unit(moveVector), Down) > 0) {
+            const topSide = topLine(rect);
+
+            if(intersects(topSide, {
+                x1: source.x + source.width / 2,
+                y1: source.y + source.height,
+                x2: source.x + source.width / 2,
+                y2: source.y + source.height + moveVector.y,
+            })){
+                return topSide;
+            }
+        }
     }
 
     return undefined;

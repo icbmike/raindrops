@@ -9,7 +9,6 @@ export const createRandomTicks = (ctx: CanvasRenderingContext2D) => {
         actions$.pipe(
             filter(action => action.type === 'StartAction'),
             mergeMap(_ => createRandomEvents(1000)),
-            tap(_ => console.log('An event!')),
             map(tick => new NewRaindropAction({x: Math.random() * ctx.canvas.clientWidth, y: Math.random() * ctx.canvas.clientHeight}))
     );
 }
