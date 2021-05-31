@@ -1,4 +1,4 @@
-import { any } from "./any";
+
 import { dot, Down, Left, Right, unit, Up, Vector } from "./vector";
 
 interface Rect {
@@ -15,8 +15,10 @@ interface Line {
     y2: number;
 }
 
-interface RectSide extends Line {
-    side: 'Top' | 'Bottom' | 'Left' | 'Right';
+export type Side = 'Top' | 'Bottom' | 'Left' | 'Right';
+
+export interface RectSide extends Line {
+    side: Side;
 }
 
 function topLine(rect: Rect) : RectSide {
@@ -70,10 +72,12 @@ const intersects = (side: RectSide, line: Line) : boolean => {
         && horizontalLine.y1 <= verticalLine.y2;
 }
 
-export const findIntersection = (rects: Rect[], source: Rect, moveVector: Vector) : RectSide | undefined => {
+export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector) : RectSide[] => {
+    const collisions = []
+    
     for (let i = 0; i < rects.length; i++) {
         const rect = rects[i];
-        
+
         // Is it moving horizontally
         if(dot(unit(moveVector), Left) > 0){
             const rightSide = rightLine(rect);
@@ -84,7 +88,7 @@ export const findIntersection = (rects: Rect[], source: Rect, moveVector: Vector
                 x2: source.x,
                 y2: source.y + source.height / 2,
             })){
-                return rightSide;
+                collisions.push(rightSide);
             }
         } else if(dot(unit(moveVector), Right) > 0) {
             const leftSide = leftLine(rect);
@@ -95,7 +99,7 @@ export const findIntersection = (rects: Rect[], source: Rect, moveVector: Vector
                 x2: source.x + source.width + moveVector.x,
                 y2: source.y + source.height / 2,
             })){
-                return leftSide;
+                collisions.push(leftSide);
             }
         }
 
@@ -109,7 +113,7 @@ export const findIntersection = (rects: Rect[], source: Rect, moveVector: Vector
                 x2: source.x + source.width / 2,
                 y2: source.y,
             })){
-                return bottomSide;
+                collisions.push(bottomSide);
             }
         } else if(dot(unit(moveVector), Down) > 0) {
             const topSide = topLine(rect);
@@ -120,10 +124,10 @@ export const findIntersection = (rects: Rect[], source: Rect, moveVector: Vector
                 x2: source.x + source.width / 2,
                 y2: source.y + source.height + moveVector.y,
             })){
-                return topSide;
+                collisions.push(topSide);
             }
         }
     }
 
-    return undefined;
+    return collisions;
 }

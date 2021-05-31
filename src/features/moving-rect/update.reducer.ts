@@ -1,10 +1,11 @@
 import { UpdateAction } from '../../dooble/action';
 import { on } from '../../dooble/reducer';
-import { inputReducer, InputState } from '../../input';
 import { any } from '../../util/any';
-import { findIntersection } from '../../util/intersect';
-import { Down, fromAngleAndSize, Left, Right, scale, Up, Vector, Zero } from '../../util/vector';
+import { groupBy } from '../../util/group-by';
+import { findCollisions, RectSide } from '../../util/intersect';
+import { scale } from '../../util/vector';
 import { WorldState } from '../worldstate';
+import { vectorFromInput } from './vectorFromInput';
 
 export const rectReducer = 
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {
@@ -15,51 +16,46 @@ export const rectReducer =
         const inputVector = vectorFromInput(current.input);
         const moveVector = scale(inputVector, delta);
 
-        const intersection = findIntersection(walls, rect, moveVector);
+        const collisions = findCollisions(walls, rect, moveVector);
 
-        const newX = rect.x + moveVector.x;
-        const newY = rect.y + moveVector.y;
+        if(any(collisions)) {
+            const collisionsBySide = groupBy(collisions, i => i.side);
+            
+            let newX;
+            let newY;
 
-        if(intersection) {
-            switch(intersection.side) {
-                case 'Top':
-                    return {
-                        ...current,
-                        rect: {
-                            ...rect,
-                            x: Math.max(0, Math.min(canvas.width - rect.width, newX)),
-                            y: intersection.y1 - rect.height
-                        }
-                    };
-                case 'Bottom':
-                    return {
-                        ...current,
-                        rect: {
-                            ...rect,
-                            x: Math.max(0, Math.min(canvas.width - rect.width, newX)),
-                            y: intersection.y1
-                        }
-                    };
-                case 'Left':
-                    return {
-                        ...current,
-                        rect: {
-                            ...rect,
-                            x: intersection.x1 - rect.width,
-                            y: Math.max(0, Math.min(canvas.height - rect.height, newY))
-                        }
-                    };
-                case 'Right':
-                    return {
-                        ...current,
-                        rect: {
-                            ...rect,
-                            x: intersection.x1,
-                            y: Math.max(0, Math.min(canvas.height - rect.height, newY))
-                        }
-                    };
+            if(collisionsBySide['Top']) {
+                newY = collisionsBySide['Top'][0].y1 - rect.height;
             }
+            else if(collisionsBySide['Bottom']){
+                newY = collisionsBySide['Bottom'][0].y1;
+            } 
+            else {
+                newY = rect.y + moveVector.y;
+            }
+
+            if(collisionsBySide['Left']) {
+                newX = collisionsBySide['Left'][0].x1 - rect.width;
+            }
+            else if(collisionsBySide['Right']){
+                newX = collisionsBySide['Right'][0].x1;
+            } 
+            else {
+                newX = rect.x + moveVector.x;
+            }
+
+            return {
+                ...current,
+                rect: {
+                    ...rect,
+                    x: Math.max(0, Math.min(canvas.width - rect.width, newX)),
+                    y: Math.max(0, Math.min(canvas.height - rect.height, newY))
+                }
+            };
         } else {
+            const newX = rect.x + moveVector.x;
+            const newY = rect.y + moveVector.y;
+
             return {
                 ...current,
                 rect: {
@@ -71,68 +67,3 @@ export const rectReducer =
         }
     }
 );
-
-
-const vectorFromInput = (input: InputState) : Vector => {
-    const { up, down, left, right } = input;
-
-    // Zero
-    if(
-            (up && down && left && right)
-         || (!up && !down && left && right)
-         || (!up && !down && !left && !right)
-         || (up && down && !left && !right)
-    ) {
-        return Zero;
-    }
-
-    // Up
-    if(
-            (up && !down && left && right)
-        || (up && !down && !left && !right)
-     ) {
-        return Up;
-    }
-
-    // Down
-    if(
-           (!up && down && left && right)
-        || (!up && down && !left && !right)
-     ) {
-        return Down;
-     }
-
-     // Left
-    if(
-        (up && down && left && !right)
-        || (!up && !down && left && !right)
-    ) {
-        return Left;
-    }
-
-    // Right
-    if(
-        (up && down && !left && right)
-        || (!up && !down && !left && right)
-    ) {
-        return Right;
-    }
-
-    // Diagonals
-    if(up && right){
-        return fromAngleAndSize(Math.PI / 4, 1);
-    }
-
-    if(up && left){
-        return fromAngleAndSize(Math.PI / 4 * 3, 1);
-    }
-    
-    if(down && left) {
-        return fromAngleAndSize(Math.PI / 4 * 5, 1);
-    }
-
-    if(down && right) {
-        return fromAngleAndSize(Math.PI / 4 * 7, 1);
-    }
-}
-

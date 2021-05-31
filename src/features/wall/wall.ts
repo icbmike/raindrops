@@ -19,14 +19,14 @@ export const walls: Wall[] = [
     //     height: 10
     // },
     {
-        x: 300,
-        y: 0,
+        x: 400,
+        y: 100,
         height: 600,
         width: 10
     },
     {
-        x: 0,
-        y: 800,
+        x: 200,
+        y: 400,
         height: 10,
         width: 400
     },
