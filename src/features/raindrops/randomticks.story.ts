@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { filter, mergeMap, tap, map } from "rxjs/operators";
 import { Action } from "../../dooble/action";
-import { createRandomEvents } from "../../createRandomEvents";
+import { createRandomEvents } from "./createRandomEvents";
 import { NewRaindropAction } from "./actions";
 
 export const createRandomTicks = (ctx: CanvasRenderingContext2D) => {

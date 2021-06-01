@@ -1,64 +1,6 @@
+import { Line } from "./Line";
+import { bottomSide as bottomSideFn, leftSide as leftSideFn, Rect, RectSide, rightSide as rightSideFn, topSide as topSideFn } from "./Rect";
 import { dot, Down, Left, Right, unit, Up, Vector } from "./vector";
-
-interface Rect {
-    x:number;
-    y:number;
-    width:number;
-    height:number;
-}
-
-interface Line {
-    x1: number;
-    y1: number;
-    x2: number;
-    y2: number;
-}
-
-export type Side = 'Top' | 'Bottom' | 'Left' | 'Right';
-
-export interface RectSide extends Line {
-    side: Side;
-}
-
-function topLine(rect: Rect) : RectSide {
-    return {
-        x1: rect.x,
-        y1: rect.y,
-        x2: rect.x + rect.width,
-        y2: rect.y,
-        side: 'Top'
-    }
-}
-
-function leftLine(rect: Rect) : RectSide {
-    return {
-        x1: rect.x,
-        y1: rect.y,
-        x2: rect.x,
-        y2: rect.y + rect.height,
-        side: 'Left'
-    }
-}
-
-function rightLine(rect: Rect) : RectSide {
-    return {
-        x1: rect.x + rect.width,
-        y1: rect.y,
-        x2: rect.x + rect.width,
-        y2: rect.y + rect.height,
-        side: 'Right'
-    }
-}
-
-function bottomLine(rect: Rect) : RectSide {
-    return {
-        x1: rect.x,
-        y1: rect.y + rect.height,
-        x2: rect.x + rect.width,
-        y2: rect.y + rect.height,
-        side: 'Bottom'
-    }
-}
 
 const intersects = (side: RectSide, line: Line) : boolean => {
     const horizontalLine = (side.side == 'Top' || side.side == 'Bottom') ? side : line;
@@ -79,7 +21,7 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector) 
 
         // Is it moving horizontally
         if(dot(unit(moveVector), Left) > 0){
-            const rightSide = rightLine(rect);
+            const rightSide = rightSideFn(rect);
 
             if(intersects(rightSide, {
                 x1: source.x + moveVector.x,
@@ -90,7 +32,7 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector) 
                 collisions.push(rightSide);
             }
         } else if(dot(unit(moveVector), Right) > 0) {
-            const leftSide = leftLine(rect);
+            const leftSide = leftSideFn(rect);
 
             if(intersects(leftSide, {
                 x1: source.x + source.width,
@@ -104,7 +46,7 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector) 
 
         // Is it moving vertically
         if(dot(unit(moveVector), Up) > 0){
-            const bottomSide = bottomLine(rect);
+            const bottomSide = bottomSideFn(rect);
 
             if(intersects(bottomSide, {
                 x1: source.x + source.width / 2,
@@ -115,7 +57,7 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector) 
                 collisions.push(bottomSide);
             }
         } else if(dot(unit(moveVector), Down) > 0) {
-            const topSide = topLine(rect);
+            const topSide = topSideFn(rect);
 
             if(intersects(topSide, {
                 x1: source.x + source.width / 2,

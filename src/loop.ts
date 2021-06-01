@@ -7,7 +7,7 @@ import { StartAction, UpdateAction } from "./dooble/action";
 import { rectReducer } from "./features/moving-rect/update.reducer";
 import { drawRect } from "./features/moving-rect/drawRect";
 import { drawRaindrops } from "./features/raindrops/draw";
-import { drawFPS } from "./draw/draw-fps";
+import { drawFPS } from "./draw/drawFps";
 import { inputReducer, inputStory } from "./input/input";
 import { walls } from "./features/wall/wall";
 import { drawWalls } from "./features/wall/draw";
