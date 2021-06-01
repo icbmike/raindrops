@@ -2,10 +2,10 @@ import { UpdateAction } from '../../dooble/action';
 import { on } from '../../dooble/reducer';
 import { any } from '../../util/any';
 import { groupBy } from '../../util/group-by';
-import { findCollisions, RectSide } from '../../util/intersect';
-import { scale } from '../../util/vector';
+import { findCollisions } from '../../physics/intersect';
+import { scale } from '../../physics/vector';
 import { WorldState } from '../worldstate';
-import { vectorFromInput } from './vectorFromInput';
+import { vectorFromInput } from '../../input/vectorFromInput';
 
 export const rectReducer = 
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {

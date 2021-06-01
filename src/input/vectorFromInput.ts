@@ -1,5 +1,5 @@
-import { InputState } from '../../input';
-import { Down, fromAngleAndSize, Left, Right, Up, Vector, Zero } from '../../util/vector';
+import { InputState } from './input';
+import { Down, fromAngleAndSize, Left, Right, Up, Vector, Zero } from '../physics/vector';
 
 export function vectorFromInput(input: InputState): Vector {
     const { up, down, left, right } = input;

@@ -1,14 +1,14 @@
 import { Dooble } from "./dooble/dooble";
 import { redraw } from "./draw/draw";
 import { WorldState } from "./features/worldstate";
-import { createRandomTicks } from "./features/randomticks.story";
+import { createRandomTicks } from "./features/raindrops/randomticks.story";
 import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrops/raindrop";
 import { StartAction, UpdateAction } from "./dooble/action";
 import { rectReducer } from "./features/moving-rect/update.reducer";
-import { drawRect } from "./features/moving-rect/draw-rect";
+import { drawRect } from "./features/moving-rect/drawRect";
 import { drawRaindrops } from "./features/raindrops/draw";
 import { drawFPS } from "./draw/draw-fps";
-import { inputReducer, inputStory } from "./input";
+import { inputReducer, inputStory } from "./input/input";
 import { walls } from "./features/wall/wall";
 import { drawWalls } from "./features/wall/draw";
 

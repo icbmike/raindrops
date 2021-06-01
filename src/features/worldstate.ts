@@ -1,6 +1,6 @@
 import { Raindrop } from "./raindrops/raindrop";
 import { RectState } from "./moving-rect/RectState";
-import { InputState } from "../input";
+import { InputState } from "../input/input";
 import { Wall } from "./wall/wall";
 
 export interface WorldState {

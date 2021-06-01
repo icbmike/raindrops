@@ -1,4 +1,3 @@
-
 import { dot, Down, Left, Right, unit, Up, Vector } from "./vector";
 
 interface Rect {
