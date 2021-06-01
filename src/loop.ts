@@ -17,8 +17,8 @@ export const loop = (context: CanvasRenderingContext2D) => {
         rect: {
             x: 150,
             y: 150,
-            height: 20,
-            width: 20
+            height: 50,
+            width: 50
         },
         raindrops: [],
         canvasContext: context,

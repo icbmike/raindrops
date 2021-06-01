@@ -8,7 +8,7 @@ export const createRandomTicks = (ctx: CanvasRenderingContext2D) => {
     return(actions$: Observable<Action>) =>
         actions$.pipe(
             filter(action => action.type === 'StartAction'),
-            mergeMap(_ => createRandomEvents(1000)),
+            mergeMap(_ => createRandomEvents(10000)),
             map(tick => new NewRaindropAction({x: Math.random() * ctx.canvas.clientWidth, y: Math.random() * ctx.canvas.clientHeight}))
     );
 }
