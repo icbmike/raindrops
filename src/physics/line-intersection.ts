@@ -24,8 +24,6 @@ export function linesIntersect(l1: Line, l2: Line): boolean {
 		
 		// Do they touch? (Are any of the points equal?)
 		if (equalPoints(p, q) || equalPoints(p, q2) || equalPoints(p2, q) || equalPoints(p2, q2)) {
-			console.log('case 1');
-			console.log(l1, l2);
 			return true
 		}
 		// Do they overlap? (Are all the point differences in either direction the same sign)
@@ -41,10 +39,7 @@ export function linesIntersect(l1: Line, l2: Line): boolean {
 				(q2.y - p.y < 0),
 				(q2.y - p2.y < 0)
 			]);
-		if(isOverlap){
-			console.log('case 2)');
-			console.log(l1, l2);
-		}
+
 		return isOverlap;
 	}
 
@@ -57,10 +52,7 @@ export function linesIntersect(l1: Line, l2: Line): boolean {
 	var t = crossProduct(subtractPoints(q, p), s) / denominator;
 
 	const isTU = (t > 0) && (t < 1) && (u > 0) && (u < 1);
-	// if(isTU) {
-	// 	console.log('case 4', t, u)
-	// 	console.log(l1, l2);
-	// }
+
 	return isTU;
 }
 
