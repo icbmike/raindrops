@@ -3,7 +3,7 @@ import { on } from '../../dooble/reducer';
 import { any } from '../../util/any';
 import { groupBy } from '../../util/group-by';
 import { findCollisions } from '../../physics/intersect';
-import { scale } from '../../physics/vector';
+import { scale, size } from '../../physics/vector';
 import { WorldState } from '../worldstate';
 import { vectorFromInput } from '../../input/vectorFromInput';
 
@@ -15,6 +15,12 @@ export const rectReducer =
 
         const inputVector = vectorFromInput(current.input);
         const moveVector = scale(inputVector, delta);
+
+        if(size(moveVector) == 0){
+            return {
+                ...current
+            }
+        }
 
         const collisions = findCollisions(walls, rect, moveVector);
 
