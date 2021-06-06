@@ -1,4 +1,5 @@
 import { Line } from "./Line";
+import { Left, Right, Up, Down, Vector } from "./vector";
 
 export type Side = 'Top' | 'Bottom' | 'Left' | 'Right';
 
@@ -10,7 +11,8 @@ export interface Rect {
 }
 
 export interface RectSide extends Line {
-    side: Side;
+    normal: Vector;
+    side: Side
 }
 
 export function topSide(rect: Rect) : RectSide {
@@ -19,7 +21,8 @@ export function topSide(rect: Rect) : RectSide {
         y1: rect.y,
         x2: rect.x + rect.width,
         y2: rect.y,
-        side: 'Top'
+        normal: Up,
+        side: "Top"
     }
 }
 
@@ -29,7 +32,8 @@ export function leftSide(rect: Rect) : RectSide {
         y1: rect.y,
         x2: rect.x,
         y2: rect.y + rect.height,
-        side: 'Left'
+        normal: Left,
+        side: "Left"
     }
 }
 
@@ -39,6 +43,7 @@ export function rightSide(rect: Rect) : RectSide {
         y1: rect.y,
         x2: rect.x + rect.width,
         y2: rect.y + rect.height,
+        normal: Right,
         side: 'Right'
     }
 }
@@ -49,6 +54,7 @@ export function bottomSide(rect: Rect) : RectSide {
         y1: rect.y + rect.height,
         x2: rect.x + rect.width,
         y2: rect.y + rect.height,
+        normal: Down,
         side: 'Bottom'
     }
 }

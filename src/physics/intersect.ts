@@ -3,7 +3,7 @@ import { linesIntersect } from "./line-intersection";
 import { pairs } from "./pairs";
 import { Point } from "./Point";
 import { bottomSide as bottomSideFn, leftSide as leftSideFn, Rect, RectSide, rightSide as rightSideFn, topSide as topSideFn } from "./Rect";
-import { Vector } from "./vector";
+import { dot, Left, Vector } from "./vector";
 
 const rectsIntersect = (r1: Rect, r2: Rect) => {
     return pairs(
@@ -26,7 +26,7 @@ const rectPoints = (r: Rect) : Point[] => {
 
 const rectBoundsPoint = (r:Rect, p:Point) : boolean => 
     p.x > r.x && p.x < r.x + r.width
-        && p.y > r.y && p.y > r.y + r.height; 
+        && p.y > r.y && p.y < r.y + r.height; 
 
 const rectsOverlap = (r1: Rect, r2: Rect) => 
         any(rectsIntersect(r1, r2)) || 
@@ -53,35 +53,21 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector):
     for (let i = 0; i < rects.length; i++) {
         const rect = rects[i];
 
-        // Get a rect of the starting position and final position
-        var deltaBoundingRect = boundingRect(source, movedSource);
-
-        const deltaBoundingRectOverlaps = rectsOverlap(rect, deltaBoundingRect);
-
-        console.log(deltaBoundingRectOverlaps);
-        if(!deltaBoundingRectOverlaps)
+        const isCollision = rectsOverlap(rect, movedSource)
+        
+        if(!isCollision) {
             continue;
-
-        const movementIntersections = rectsIntersect(rect, movedSource);
-
-        if(!any(movementIntersections)){
-            console.log('tunneling');
+        }else {
+            console.log('collision');
         }
+        
+        const possibileSides = [topSideFn(rect), bottomSideFn(rect), leftSideFn(rect), rightSideFn(rect)]
+            .filter(rectSide => dot(rectSide.normal, moveVector) < 0);
 
-        if(moveVector.y != 0 && any(movementIntersections, ([side1, _]) => side1.side == 'Top' || side1.side == 'Bottom')) {
-            const sideCollidedWith = moveVector.y > 0
-                ? topSideFn(rect)
-                : bottomSideFn(rect)
+        if(possibileSides.length == 1) {
+            collisions.push(possibileSides[0]);
+        } else {
 
-            collisions.push(sideCollidedWith);
-        }
-
-        if(moveVector.x != 0 && any(movementIntersections, ([side1, _]) => side1.side == 'Left' || side1.side == 'Right')) {
-            const sideCollidedWith = moveVector.x > 0
-                ? leftSideFn(rect)
-                : rightSideFn(rect)
-
-            collisions.push(sideCollidedWith);
         }
     }
 
