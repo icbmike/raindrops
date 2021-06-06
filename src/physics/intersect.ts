@@ -61,13 +61,53 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector):
             console.log('collision');
         }
         
+        // Filter possible collisions sides by their surface normal
         const possibileSides = [topSideFn(rect), bottomSideFn(rect), leftSideFn(rect), rightSideFn(rect)]
             .filter(rectSide => dot(rectSide.normal, moveVector) < 0);
 
         if(possibileSides.length == 1) {
             collisions.push(possibileSides[0]);
         } else {
+            // Moving diagonally
+            // Need to find which side we collide with first
 
+            if(moveVector.x < 0 && moveVector.y < 0){
+                const timeXCollision = Math.abs((leftSideFn(source).x1 - rightSideFn(rect).x1) / moveVector.x);
+                const timeYCollision = Math.abs((topSideFn(source).y1 - bottomSideFn(rect).y1) / moveVector.y);
+
+                if(timeXCollision > timeYCollision){
+                    collisions.push(bottomSideFn(rect))
+                }else {
+                    collisions.push(rightSideFn(rect))
+                }
+            } else if (moveVector.x > 0 && moveVector.y < 0){
+                const timeXCollision = Math.abs((leftSideFn(rect).x1 - rightSideFn(source).x1) / moveVector.x);
+                const timeYCollision = Math.abs((topSideFn(source).y1 - bottomSideFn(rect).y1) / moveVector.y);
+
+                if(timeXCollision > timeYCollision){
+                    collisions.push(bottomSideFn(rect))
+                }else {
+                    collisions.push(leftSideFn(rect))
+                }
+            } else if(moveVector.x < 0 && moveVector.y > 0) {
+                const timeXCollision = Math.abs((leftSideFn(source).x1 - rightSideFn(rect).x1) / moveVector.x);
+                const timeYCollision = Math.abs((topSideFn(rect).y1 - bottomSideFn(source).y1) / moveVector.y);
+
+                if(timeXCollision > timeYCollision){
+                    collisions.push(topSideFn(rect))
+                }else {
+                    collisions.push(rightSideFn(rect))
+                }
+            } else {
+                const timeXCollision = Math.abs((leftSideFn(rect).x1 - rightSideFn(source).x1) / moveVector.x);
+                const timeYCollision = Math.abs((topSideFn(rect).y1 - bottomSideFn(source).y1) / moveVector.y);
+
+                if(timeXCollision > timeYCollision){
+                    collisions.push(topSideFn(rect))
+                }else {
+                    collisions.push(leftSideFn(rect))
+                }
+            }
         }
     }
 
