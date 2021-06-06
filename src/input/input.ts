@@ -10,6 +10,8 @@ export interface InputState {
     down:boolean;
     left:boolean;
     right:boolean;
+    leftSquareBracket:boolean;
+    rightSquareBracket:boolean;
 }
 
 export class InputAction implements Action {
@@ -42,22 +44,19 @@ const input$ =
             up: keys['ArrowUp'],
             down: keys['ArrowDown'],
             left: keys['ArrowLeft'],
-            right: keys['ArrowRight']
+            right: keys['ArrowRight'],
+            leftSquareBracket: keys['['],
+            rightSquareBracket: keys[']']
         }))
     );
 
 export const inputStory: Story = (action$) => input$;
 
 export const inputReducer = on('InputAction', (current: WorldState, action: InputAction) => {
-    const { up, down, left, right} = action.payload;
-
     return {
         ...current,
         input: {
-            down,
-            up,
-            left,
-            right
+            ...action.payload
         }
     }
 });

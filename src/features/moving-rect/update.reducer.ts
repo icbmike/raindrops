@@ -11,7 +11,6 @@ export const rectReducer =
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {
         const { delta } = action.payload;
         const { rect, walls } = current;
-        const { canvas } = current.canvasContext;
 
         const inputVector = vectorFromInput(current.input);
         const moveVector = scale(inputVector, delta);
@@ -22,14 +21,14 @@ export const rectReducer =
             }
         }
 
+        let newX;
+        let newY;
+
         const collisions = findCollisions(walls, rect, moveVector);
 
         if(any(collisions)) {
             const collisionsBySide = groupBy(collisions, i => i.side);
             
-            let newX;
-            let newY;
-
             if(collisionsBySide['Top']) {
                 newY = collisionsBySide['Top'][0].y1 - rect.height;
             }
@@ -49,27 +48,18 @@ export const rectReducer =
             else {
                 newX = rect.x + moveVector.x;
             }
-
-            return {
-                ...current,
-                rect: {
-                    ...rect,
-                    x: Math.max(0, Math.min(canvas.width - rect.width, newX)),
-                    y: Math.max(0, Math.min(canvas.height - rect.height, newY))
-                }
-            };
         } else {
-            const newX = rect.x + moveVector.x;
-            const newY = rect.y + moveVector.y;
-
-            return {
-                ...current,
-                rect: {
-                    ...rect,
-                    x: Math.max(0, Math.min(canvas.width - rect.width, newX)),
-                    y: Math.max(0, Math.min(canvas.height - rect.height, newY))
-                }
-            };
+            newX = rect.x + moveVector.x;
+            newY = rect.y + moveVector.y;
         }
+
+        return {
+            ...current,
+            rect: {
+                ...rect,
+                x: newX,
+                y: newY
+            }
+        };
     }
 );

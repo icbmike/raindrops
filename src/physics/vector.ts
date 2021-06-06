@@ -35,7 +35,7 @@ export const add = (v1: Vector, v2: Vector) : Vector => {
     };
 }
 
-export const substract = (v1: Vector, v2: Vector) : Vector => {
+export const subtract = (v1: Vector, v2: Vector) : Vector => {
     return {
         x: v1.x - v2.x,
         y: v1.y - v2.y

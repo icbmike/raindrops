@@ -11,6 +11,7 @@ import { drawFPS } from "./draw/drawFps";
 import { inputReducer, inputStory } from "./input/input";
 import { walls } from "./features/wall/wall";
 import { drawWalls } from "./features/wall/draw";
+import { cameraUpdateReducer, cameraZoomReducer } from "./draw/camera";
 
 export const loop = (context: CanvasRenderingContext2D) => {
     const initalState: WorldState = {
@@ -26,7 +27,14 @@ export const loop = (context: CanvasRenderingContext2D) => {
             down: false,
             left: false,
             right: false,
-            up: false
+            up: false,
+            leftSquareBracket: false,
+            rightSquareBracket: false
+        },
+        camera: {
+            x: 0,
+            y: 0,
+            zoom: 1
         },
         walls
     }
@@ -37,7 +45,9 @@ export const loop = (context: CanvasRenderingContext2D) => {
             rectReducer, 
             raindropUpdateReducer, 
             raindropTickReducer,
-            inputReducer
+            inputReducer,
+            cameraZoomReducer,
+            cameraUpdateReducer
         ], 
         [
             createRandomTicks(context),
