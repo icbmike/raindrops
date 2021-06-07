@@ -1,5 +1,5 @@
 import { Feature } from "../../dooble/feature";
-import { Down, Up } from "../../physics/vector";
+import { Down, Left, Up } from "../../physics/vector";
 import { drawTransporter } from "./drawTransporter";
 import { transporterUpdateReducer } from "./transporter.reducer";
 
@@ -18,10 +18,10 @@ export const transporterFeature: Feature = {
                     transportProgressPercent: 0
                 },
                 t2: {
-                    x: 800,
+                    x: 1900,
                     y: 300,
                     radius: 50,
-                    exitDirection: Down,
+                    exitDirection: Left,
                     transportProgressPercent: 0
                 },
                 state: 'Idle'

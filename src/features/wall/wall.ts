@@ -19,15 +19,40 @@ export const initialWalls: Wall[] = [
         height: 10
     },
     {
-        x: 400,
-        y: 100,
-        height: 600,
+        x: 800,
+        y: 0,
+        height: 800,
         width: 10
     },
     {
-        x: 200,
-        y: 400,
+        x: 0,
+        y: 800,
         height: 10,
-        width: 400
+        width: 810
+    },
+
+    {
+        x: 1200,
+        y: 0,
+        width: 10,
+        height: 800
+    },
+    {
+        x: 1200,
+        y: 0,
+        width: 800,
+        height: 10
+    },
+    {
+        x: 2000,
+        y: 0,
+        height: 800,
+        width: 10
+    },
+    {
+        x: 1200,
+        y: 800,
+        height: 10,
+        width: 810
     },
 ];
