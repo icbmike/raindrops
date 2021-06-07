@@ -13,7 +13,7 @@ export const rectReducer =
         const { player: rect, walls } = current;
 
         const inputVector = vectorFromInput(current.input);
-        const moveVector = scale(inputVector, delta);
+        const moveVector = scale(inputVector, delta * 0.5);
 
         if(size(moveVector) == 0){
             return {
