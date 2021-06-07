@@ -2,8 +2,8 @@ import { any } from "../util/any";
 import { linesIntersect } from "./line-intersection";
 import { pairs } from "./pairs";
 import { Point } from "./Point";
-import { bottomSide as bottomSideFn, leftSide as leftSideFn, Rect, RectSide, rightSide as rightSideFn, topSide as topSideFn } from "./Rect";
-import { dot, Left, Vector } from "./vector";
+import { bottomSide as bottomSideFn, leftSide as leftSideFn, Rect, rectPoints, RectSide, rightSide as rightSideFn, topSide as topSideFn } from "./Rect";
+import { dot, Vector } from "./vector";
 
 const rectsIntersect = (r1: Rect, r2: Rect) => {
     return pairs(
@@ -15,14 +15,7 @@ const rectsIntersect = (r1: Rect, r2: Rect) => {
     )).filter(([l1, l2]) => linesIntersect(l1, l2));
 }
 
-const rectPoints = (r: Rect) : Point[] => {
-    return [
-        {x: r.x, y: r.y}, 
-        {x: r.x, y: r.y + r.height},
-        {x: r.x + r.width, y: r.y}, 
-        {x: r.x + r.width, y: r.y +r.height},
-    ];
-}
+
 
 const rectBoundsPoint = (r:Rect, p:Point) : boolean => 
     p.x > r.x && p.x < r.x + r.width

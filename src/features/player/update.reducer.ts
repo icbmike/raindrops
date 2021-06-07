@@ -10,7 +10,7 @@ import { vectorFromInput } from '../input/vectorFromInput';
 export const rectReducer = 
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {
         const { delta } = action.payload;
-        const { rect, walls } = current;
+        const { player: rect, walls } = current;
 
         const inputVector = vectorFromInput(current.input);
         const moveVector = scale(inputVector, delta);
@@ -55,7 +55,7 @@ export const rectReducer =
 
         return {
             ...current,
-            rect: {
+            player: {
                 ...rect,
                 x: newX,
                 y: newY

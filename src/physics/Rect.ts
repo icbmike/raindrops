@@ -1,4 +1,5 @@
 import { Line } from "./Line";
+import { Point } from "./Point";
 import { Left, Right, Up, Down, Vector } from "./vector";
 
 export type Side = 'Top' | 'Bottom' | 'Left' | 'Right';
@@ -57,4 +58,13 @@ export function bottomSide(rect: Rect) : RectSide {
         normal: Down,
         side: 'Bottom'
     }
+}
+
+export const rectPoints = (r: Rect) : Point[] => {
+    return [
+        {x: r.x, y: r.y}, 
+        {x: r.x, y: r.y + r.height},
+        {x: r.x + r.width, y: r.y}, 
+        {x: r.x + r.width, y: r.y +r.height},
+    ];
 }

@@ -1,4 +1,4 @@
-export interface RectState {
+export interface PlayerState {
     x: number;
     y: number;
     width: number;

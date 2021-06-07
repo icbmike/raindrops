@@ -5,6 +5,7 @@ import { fpsFeature } from "./features/fps/fps.feature";
 import { inputFeature } from "./features/input/input.feature";
 import { playerFeature } from "./features/player/player.feature";
 import { createRaindropsFeature } from "./features/raindrops/raindrops.feature";
+import { transporterFeature } from "./features/transporter/transporter.feature";
 import { wallsFeature } from "./features/wall/walls.feature";
 import { loop } from "./loop";
 
@@ -13,11 +14,12 @@ var [_, context] = setupCanvas(document.getElementById('canvas') as HTMLCanvasEl
 console.log('starting loop');
 
 const features: Feature[] = [
-    playerFeature,
     createRaindropsFeature(context),
     cameraFeature,
     inputFeature,
     wallsFeature,
+    transporterFeature,
+    playerFeature,
     fpsFeature,
 ]
 

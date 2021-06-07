@@ -7,7 +7,7 @@ export const playerFeature: Feature = {
     reducers: [rectReducer],
     stories: [],
     initialState: {
-        rect: {
+        player: {
             x: 150,
             y: 150,
             height: 50,

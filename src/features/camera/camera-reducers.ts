@@ -17,7 +17,7 @@ export const cameraZoomReducer = on('InputAction', (current: WorldState, action:
 })
 
 export const cameraUpdateReducer = on('UpdateAction', (current: WorldState, _: UpdateAction) => {
-    const {rect, camera, canvasContext} = current;
+    const {player: rect, camera, canvasContext} = current;
 
     const rectRelativeToCamera = subtract(rect, camera);
     const screenWidth = canvasContext.canvas.width / camera.zoom;
