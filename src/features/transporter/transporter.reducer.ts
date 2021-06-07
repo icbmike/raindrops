@@ -31,7 +31,7 @@ export const transporterUpdateReducer = on('UpdateAction', (current: WorldState,
             }
 
             if(entryPad && exitPad){
-                const newTransportProgress = entryPad.transportProgressPercent + 0.05 * delta;
+                const newTransportProgress = entryPad.transportProgressPercent + 0.1 * delta;
                 const newState: TransporterPairState = newTransportProgress >= 100 ? 'Transporting' : 'Idle';
 
                 if(newState == 'Idle'){

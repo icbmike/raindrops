@@ -10,8 +10,8 @@ export const playerFeature: Feature = {
         player: {
             x: 150,
             y: 150,
-            height: 50,
-            width: 50
+            height: 25,
+            width: 25
         }
     }
 }
