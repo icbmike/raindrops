@@ -1,9 +1,9 @@
 import { fromEvent, merge } from "rxjs";
 import { map, tap } from "rxjs/operators";
-import { Action } from "../dooble/action";
-import { on } from "../dooble/reducer";
-import { Story } from "../dooble/story";
-import { WorldState } from "../features/worldstate";
+import { Action } from "../../dooble/action";
+import { on } from "../../dooble/reducer";
+import { Story } from "../../dooble/story";
+import { WorldState } from "../worldstate";
 
 export interface InputState {
     up:boolean;

@@ -1,57 +1,24 @@
 import { Dooble } from "./dooble/dooble";
 import { redraw } from "./draw/draw";
 import { WorldState } from "./features/worldstate";
-import { createRandomTicks } from "./features/raindrops/randomticks.story";
-import { raindropUpdateReducer, raindropTickReducer } from "./features/raindrops/raindrop";
 import { StartAction, UpdateAction } from "./dooble/action";
-import { rectReducer } from "./features/moving-rect/update.reducer";
-import { drawRect } from "./features/moving-rect/drawRect";
-import { drawRaindrops } from "./features/raindrops/draw";
-import { drawFPS } from "./draw/drawFps";
-import { inputReducer, inputStory } from "./input/input";
-import { walls } from "./features/wall/wall";
 import { drawWalls } from "./features/wall/draw";
-import { cameraUpdateReducer, cameraZoomReducer } from "./draw/camera";
+import { Feature } from "./dooble/feature";
 
-export const loop = (context: CanvasRenderingContext2D) => {
-    const initalState: WorldState = {
-        rect: {
-            x: 150,
-            y: 150,
-            height: 50,
-            width: 50
-        },
-        raindrops: [],
+export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => {
+    const nonFeatureState = {
         canvasContext: context,
-        input: {
-            down: false,
-            left: false,
-            right: false,
-            up: false,
-            leftSquareBracket: false,
-            rightSquareBracket: false
-        },
-        camera: {
-            x: 0,
-            y: 0,
-            zoom: 1
-        },
-        walls
-    }
+    };
      
+    const initialState = Object.assign(nonFeatureState, ...features.map(f => f.initialState))
+
     const dooble = new Dooble<WorldState>(
-        initalState, 
+        initialState, 
         [
-            rectReducer, 
-            raindropUpdateReducer, 
-            raindropTickReducer,
-            inputReducer,
-            cameraZoomReducer,
-            cameraUpdateReducer
+            ...features.flatMap(f => f.reducers)
         ], 
         [
-            createRandomTicks(context),
-            inputStory
+            ...features.flatMap(f => f.stories)
         ]
     );
 
@@ -65,10 +32,7 @@ export const loop = (context: CanvasRenderingContext2D) => {
         dooble.dispatch(new UpdateAction({delta}));
 
         redraw(context, dooble.state, [
-            drawRaindrops,
-            drawRect,
-            drawWalls,
-            drawFPS
+            ...features.flatMap(f => f.drawFunctions)
         ]);
 
         window.requestAnimationFrame(rafCallback);

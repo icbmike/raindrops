@@ -5,7 +5,7 @@ export interface Wall {
     height: number;
 }
 
-export const walls: Wall[] = [
+export const initialWalls: Wall[] = [
     {
         x: 0,
         y: 0,

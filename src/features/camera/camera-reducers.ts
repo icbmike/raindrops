@@ -1,14 +1,8 @@
-import { UpdateAction } from "../dooble/action";
-import { on } from "../dooble/reducer";
-import { WorldState } from "../features/worldstate";
+import { UpdateAction } from "../../dooble/action";
+import { on } from "../../dooble/reducer";
+import { WorldState } from "../worldstate";
 import { InputAction } from "../input/input";
-import { subtract } from "../physics/vector";
-
-export interface Camera {
-    x: number;
-    y: number;
-    zoom: number;
-}
+import { subtract } from "../../physics/vector";
 
 export const cameraZoomReducer = on('InputAction', (current: WorldState, action: InputAction) => {
     const delta = (action.payload.leftSquareBracket ? -0.1 : 0) + (action.payload.rightSquareBracket ? 0.1 : 0);

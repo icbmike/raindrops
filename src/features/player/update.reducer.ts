@@ -5,7 +5,7 @@ import { groupBy } from '../../util/group-by';
 import { findCollisions } from '../../physics/intersect';
 import { scale, size } from '../../physics/vector';
 import { WorldState } from '../worldstate';
-import { vectorFromInput } from '../../input/vectorFromInput';
+import { vectorFromInput } from '../input/vectorFromInput';
 
 export const rectReducer = 
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {

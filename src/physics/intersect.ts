@@ -57,8 +57,6 @@ export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector):
         
         if(!isCollision) {
             continue;
-        }else {
-            console.log('collision');
         }
         
         // Filter possible collisions sides by their surface normal
