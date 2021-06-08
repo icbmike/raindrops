@@ -6,7 +6,7 @@ import { Story } from "./story";
 
 export interface Feature {
     reducers: Reducer<WorldState, Action>[],
-    stories: Story[],
+    stories: Story<WorldState>[],
     drawFunctions: DrawFunc[],
     initialState?: Partial<WorldState>
 }

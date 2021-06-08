@@ -11,5 +11,5 @@ export interface TriggerSource {
 export class TriggerAction implements Action {
     readonly type = 'TriggerAction';
 
-    constructor(private payload: { code:string }){}
+    constructor(public payload: { code: string }){}
 }

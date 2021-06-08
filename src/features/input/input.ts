@@ -52,7 +52,7 @@ const input$ =
         }))
     );
 
-export const inputStory: Story = (action$) => input$;
+export const inputStory: Story<WorldState> = () => input$;
 
 export const inputReducer = on('InputAction', (current: WorldState, action: InputAction) => {
     return {

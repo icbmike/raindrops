@@ -1,13 +1,15 @@
 import { Feature } from "../../dooble/feature";
 import { buttonUpdateReducer } from "./button.reducer";
+import { buttonStory } from "./button.story";
 import { buttonInputReducer } from "./buttonInput.reducer";
+import { doorReducer } from "./door.reducer";
 import { drawButton } from "./drawButton";
 import { drawDoors } from "./drawDoor";
 
 export const lockedDoorFeature: Feature = {
-    reducers: [buttonUpdateReducer, buttonInputReducer],
+    reducers: [buttonUpdateReducer, buttonInputReducer, doorReducer],
     drawFunctions: [drawDoors, drawButton],
-    stories: [],
+    stories: [buttonStory],
     initialState: {
         doors: [
             {
