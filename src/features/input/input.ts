@@ -12,6 +12,7 @@ export interface InputState {
     right:boolean;
     leftSquareBracket:boolean;
     rightSquareBracket:boolean;
+    e:boolean;
 }
 
 export class InputAction implements Action {
@@ -46,7 +47,8 @@ const input$ =
             left: keys['ArrowLeft'],
             right: keys['ArrowRight'],
             leftSquareBracket: keys['['],
-            rightSquareBracket: keys[']']
+            rightSquareBracket: keys[']'],
+            e: keys['e']
         }))
     );
 

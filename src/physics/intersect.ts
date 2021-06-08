@@ -15,25 +15,14 @@ const rectsIntersect = (r1: Rect, r2: Rect) => {
     )).filter(([l1, l2]) => linesIntersect(l1, l2));
 }
 
-
-
 const rectBoundsPoint = (r:Rect, p:Point) : boolean => 
     p.x > r.x && p.x < r.x + r.width
         && p.y > r.y && p.y < r.y + r.height; 
 
-const rectsOverlap = (r1: Rect, r2: Rect) => 
+export const rectsOverlap = (r1: Rect, r2: Rect) => 
         any(rectsIntersect(r1, r2)) || 
         any(rectPoints(r1), p => rectBoundsPoint(r2, p)) || 
         any(rectPoints(r2), p => rectBoundsPoint(r1, p));
-
-const boundingRect = (r1: Rect, r2: Rect): Rect => {
-    return {
-        x: Math.min(r1.x, r2.x),
-        y: Math.min(r1.y, r2.y),
-        width: Math.max(r1.x + r1.width, r2.x + r2.width) - Math.min(r1.x, r2.x),
-        height: Math.max(r1.y + r1.height, r2.y + r2.height) - Math.min(r1.y, r2.y)
-    };
-}
 
 export const findCollisions = (rects: Rect[], source: Rect, moveVector: Vector): RectSide[] => {
     const collisions: RectSide[] = [];

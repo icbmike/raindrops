@@ -3,5 +3,6 @@ import { TriggerSource } from "../trigger/Trigger";
 export interface Button extends TriggerSource {
     x: number;
     y: number;
-    state: boolean;
+    on: boolean;
+    interactive: boolean;
 }

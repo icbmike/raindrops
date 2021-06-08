@@ -12,7 +12,8 @@ export const inputFeature : Feature = {
             right: false,
             up: false,
             leftSquareBracket: false,
-            rightSquareBracket: false
+            rightSquareBracket: false,
+            e: false
         }
     }
 }
