@@ -4,6 +4,8 @@ import { InputState } from "./input/input";
 import { Wall } from "./wall/wall";
 import { Camera } from "./camera/Camera";
 import { TransporterPair } from "./transporter/Transporter";
+import { Button } from "./locked-door/Button";
+import { Door } from "./locked-door/Door";
 
 export interface WorldState {
     player: PlayerState;
@@ -12,5 +14,7 @@ export interface WorldState {
     walls: Wall[],
     camera: Camera,
     canvasContext: CanvasRenderingContext2D,
-    transporters: TransporterPair[]
+    transporters: TransporterPair[],
+    doors: Door[],
+    buttons: Button[]
 }

@@ -3,6 +3,7 @@ import { setupCanvas } from "./draw/canvas";
 import { cameraFeature } from "./features/camera/camera.feature";
 import { fpsFeature } from "./features/fps/fps.feature";
 import { inputFeature } from "./features/input/input.feature";
+import { lockedDoorFeature } from "./features/locked-door/locked-door.feature";
 import { playerFeature } from "./features/player/player.feature";
 import { createRaindropsFeature } from "./features/raindrops/raindrops.feature";
 import { transporterFeature } from "./features/transporter/transporter.feature";
@@ -18,6 +19,7 @@ const features: Feature[] = [
     cameraFeature,
     inputFeature,
     wallsFeature,
+    lockedDoorFeature,
     transporterFeature,
     playerFeature,
     fpsFeature,
