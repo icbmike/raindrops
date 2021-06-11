@@ -3,7 +3,7 @@ import { TriggerAction } from "../trigger/Trigger";
 import { WorldState } from "../worldstate";
 import { Door } from "./Door";
 
-export const doorReducer = on('TriggerAction', (current:WorldState, action:TriggerAction) => {
+export const doorTriggerReducer = on('TriggerAction', (current:WorldState, action:TriggerAction) => {
     const {code} = action.payload;
 
     const newDoors: Door[] = current.doors.map(d => {
