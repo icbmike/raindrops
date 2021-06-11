@@ -28,7 +28,7 @@ export const initialWalls: Wall[] = [
         x: 0,
         y: 800,
         height: 10,
-        width: 810
+        width: 600
     },
 
     {

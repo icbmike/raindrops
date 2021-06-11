@@ -10,7 +10,7 @@ import { vectorFromInput } from '../input/vectorFromInput';
 export const rectReducer = 
     on('UpdateAction', (current: WorldState, action: UpdateAction) => {
         const { delta } = action.payload;
-        const { player: rect, walls } = current;
+        const { player: rect, walls, doors } = current;
 
         const inputVector = vectorFromInput(current.input);
         const moveVector = scale(inputVector, delta * 0.5);
@@ -24,7 +24,7 @@ export const rectReducer =
         let newX;
         let newY;
 
-        const collisions = findCollisions(walls, rect, moveVector);
+        const collisions = findCollisions([...walls, ...doors.filter(d =>d.state == 'Closed')], rect, moveVector);
 
         if(any(collisions)) {
             const collisionsBySide = groupBy(collisions, i => i.side);
