@@ -5,20 +5,17 @@ import { InputAction } from "../input/input";
 import { subtract } from "../../physics/vector";
 import { Collidable } from "../../physics/Collidable";
 
-export const cameraZoomReducer = on('InputAction', (current: World, action: InputAction) => {
+export const cameraZoomReducer = on('InputAction', (world: World, action: InputAction) => {
     const delta = (action.payload.leftSquareBracket ? -0.1 : 0) + (action.payload.rightSquareBracket ? 0.1 : 0);
     
-    return {
-        ...current,
-        camera: {
-            ...current.camera,
-            zoom: current.camera.zoom + delta
-        }
-    }
+    world.camera = {
+        ...world.camera,
+        zoom: world.camera.zoom + delta
+    };
 })
 
-export const cameraUpdateReducer = on('UpdateAction', (current: World, _: UpdateAction) => {
-    const { player, camera, canvasContext } = current;
+export const cameraUpdateReducer = on('UpdateAction', (world: World, _: UpdateAction) => {
+    const { player, camera, canvasContext } = world;
 
     const playerCollidable = player.getComponent<Collidable>('Collidable')!;
     
@@ -39,12 +36,9 @@ export const cameraUpdateReducer = on('UpdateAction', (current: World, _: Update
             ? playerCollidable.y - (screenHeight - buffer - playerCollidable.height)
             : camera.y;
 
-    return {
-        ...current,
-        camera: {
-            ...camera,
-            x: Math.max(0, Math.min(2000, newX)),
-            y: Math.max(0, Math.min(1000, newY))
-        }
-    }
+    world.camera = {
+        ...camera,
+        x: Math.max(0, Math.min(2000, newX)),
+        y: Math.max(0, Math.min(1000, newY))
+    };
 });

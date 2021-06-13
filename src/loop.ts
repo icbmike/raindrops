@@ -14,7 +14,7 @@ export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => 
             y: 0,
             zoom: 1
         },
-        player: new Player(150, 150, 50, 50),
+        player: new Player(150, 150, 25, 25),
         input: {
             down: false,
             left: false,
