@@ -6,7 +6,6 @@ import { World } from "../worldstate";
 import { Button } from "./Button";
 
 export const buttonUpdateReducer = on('UpdateAction', (current: World, action: UpdateAction): World => {
-    const { buttons, player } = current;
 
     // const newButtons: Button[] = buttons.map(b => 
     // {

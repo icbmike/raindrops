@@ -2,7 +2,7 @@ import { World } from "../features/worldstate";
 import { Action } from "./action";
 
 export interface Reducer<State, Action>{
-    (current: State, action:Action): State;
+    (current: State, action:Action): void;
 }
 
 export function on<TAction extends Action>(type: string, reducer:Reducer<World, TAction>) {

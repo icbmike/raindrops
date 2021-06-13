@@ -3,9 +3,10 @@ import { redraw } from "./draw/draw";
 import { World } from "./features/worldstate";
 import { StartAction, UpdateAction } from "./dooble/action";
 import { Feature } from "./dooble/feature";
+import { Player } from "./features/player/Player";
 
 export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => {
-    const initialState = {
+    const initialState: World = {
         canvasContext: context,
         gameEntities: features.flatMap(f => f.gameEntities),
         camera: {
@@ -13,11 +14,15 @@ export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => 
             y: 0,
             zoom: 1
         },
-        player: {
-            x: 150,
-            y: 150,
-            height: 25,
-            width: 25
+        player: new Player(150, 150, 50, 50),
+        input: {
+            down: false,
+            left: false,
+            right: false,
+            up: false,
+            leftSquareBracket: false,
+            rightSquareBracket: false,
+            e: false
         }
     };
 

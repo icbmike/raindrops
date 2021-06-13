@@ -1,12 +1,8 @@
 import { Feature } from "../../dooble/feature";
-import { drawRect } from "./drawRect";
-import { rectReducer } from "./update.reducer";
+import { PlayerMoveSystem } from "./update.reducer";
 
 export const playerFeature: Feature = {
-    reducers: [],
+    reducers: [PlayerMoveSystem],
     stories: [],
     gameEntities: [],
-    // initialState: {
-    //     
-    // }
 }

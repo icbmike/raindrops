@@ -14,7 +14,7 @@ export class Dooble<TState> {
     }
 
     dispatch(action: Action) {
-        this.state = this.reducers.reduce((current, reducer) => reducer(current, action), this.state);
+        this.reducers.forEach(r => r(this.state, action));
 
         this.stateSubject.next(this.state);
         this.actionSubject.next(action);

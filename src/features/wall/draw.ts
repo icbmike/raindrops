@@ -7,5 +7,4 @@ export const drawWalls = (context: CanvasRenderingContext2D, wall: Wall) => {
     const {x, y, width, height} = wall.getComponent<Collidable>('Collidable')!
 
     context.fillRect(x, y, width, height);
-   
 }
