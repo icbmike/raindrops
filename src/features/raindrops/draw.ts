@@ -1,6 +1,6 @@
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 
-export const drawRaindrops = (context: CanvasRenderingContext2D, state: WorldState) => {
+export const drawRaindrops = (context: CanvasRenderingContext2D, state: World) => {
     state.raindrops.forEach(rd => {
         const gradient = context.createRadialGradient(rd.x, rd.y, rd.radius, rd.x, rd.y, rd.radius + 30);
 

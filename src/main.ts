@@ -15,14 +15,14 @@ var [_, context] = setupCanvas(document.getElementById('canvas') as HTMLCanvasEl
 console.log('starting loop');
 
 const features: Feature[] = [
-    createRaindropsFeature(context),
+    //createRaindropsFeature(context),
     cameraFeature,
-    inputFeature,
+    //inputFeature,
     wallsFeature,
-    lockedDoorFeature,
-    transporterFeature,
+    //lockedDoorFeature,
+    //transporterFeature,
     playerFeature,
-    fpsFeature,
+    //fpsFeature,
 ]
 
 loop(context, features);

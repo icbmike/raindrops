@@ -1,19 +1,28 @@
 import { Dooble } from "./dooble/dooble";
 import { redraw } from "./draw/draw";
-import { WorldState } from "./features/worldstate";
+import { World } from "./features/worldstate";
 import { StartAction, UpdateAction } from "./dooble/action";
-import { drawWalls } from "./features/wall/draw";
 import { Feature } from "./dooble/feature";
 
 export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => {
-    const nonFeatureState = {
+    const initialState = {
         canvasContext: context,
+        gameEntities: features.flatMap(f => f.gameEntities),
+        camera: {
+            x: 0,
+            y: 0,
+            zoom: 1
+        },
+        player: {
+            x: 150,
+            y: 150,
+            height: 25,
+            width: 25
+        }
     };
-     
-    const initialState = Object.assign(nonFeatureState, ...features.map(f => f.initialState))
 
-    const dooble = new Dooble<WorldState>(
-        initialState, 
+    const dooble = new Dooble<World>(
+        initialState as any, 
         [
             ...features.flatMap(f => f.reducers)
         ], 
@@ -31,9 +40,7 @@ export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => 
 
         dooble.dispatch(new UpdateAction({delta}));
 
-        redraw(context, dooble.state, [
-            ...features.flatMap(f => f.drawFunctions)
-        ]);
+        redraw(context, dooble.state);
 
         window.requestAnimationFrame(rafCallback);
     };

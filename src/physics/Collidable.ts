@@ -1,7 +1,7 @@
-import { Component } from "../features/locked-door/locked-door.feature";
+import { Component, GameEntity } from "../dooble/GameEntity";
 import { Rect } from "./Rect";
 
-export class Collidable implements Rect, Component {
+export class Collidable extends Component implements Rect {
     readonly type = 'Collidable';
     
     constructor(
@@ -11,5 +11,7 @@ export class Collidable implements Rect, Component {
         public height: number,
         public collisionEnabled: () => boolean = () => true,
     ) 
-    {}
+    {
+        super();
+    }
 }

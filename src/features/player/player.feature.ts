@@ -3,15 +3,10 @@ import { drawRect } from "./drawRect";
 import { rectReducer } from "./update.reducer";
 
 export const playerFeature: Feature = {
-    drawFunctions: [drawRect],
-    reducers: [rectReducer],
+    reducers: [],
     stories: [],
-    initialState: {
-        player: {
-            x: 150,
-            y: 150,
-            height: 25,
-            width: 25
-        }
-    }
+    gameEntities: [],
+    // initialState: {
+    //     
+    // }
 }

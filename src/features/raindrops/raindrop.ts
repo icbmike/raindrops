@@ -2,7 +2,7 @@ import { UpdateAction } from "../../dooble/action";
 import { on } from "../../dooble/reducer";
 import { NewRaindropAction } from "./actions";
 
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 
 export interface Raindrop {
     x: number;
@@ -14,7 +14,7 @@ export interface Raindrop {
 }
 
 export const raindropUpdateReducer = 
-    on('UpdateAction', (current: WorldState, action: UpdateAction) => 
+    on('UpdateAction', (current: World, action: UpdateAction) => 
         {
             return ({
                 ...current,
@@ -27,7 +27,7 @@ export const raindropUpdateReducer =
     );
 
 export const raindropTickReducer = 
-    on('RandomTickAction', (current: WorldState, action: NewRaindropAction) => {
+    on('RandomTickAction', (current: World, action: NewRaindropAction) => {
         const { payload: {x, y} } = action;
         
         const r = Math.floor(Math.random() * 127 + 127);

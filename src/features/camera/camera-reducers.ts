@@ -1,10 +1,10 @@
 import { UpdateAction } from "../../dooble/action";
 import { on } from "../../dooble/reducer";
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 import { InputAction } from "../input/input";
 import { subtract } from "../../physics/vector";
 
-export const cameraZoomReducer = on('InputAction', (current: WorldState, action: InputAction) => {
+export const cameraZoomReducer = on('InputAction', (current: World, action: InputAction) => {
     const delta = (action.payload.leftSquareBracket ? -0.1 : 0) + (action.payload.rightSquareBracket ? 0.1 : 0);
     
     return {
@@ -16,7 +16,7 @@ export const cameraZoomReducer = on('InputAction', (current: WorldState, action:
     }
 })
 
-export const cameraUpdateReducer = on('UpdateAction', (current: WorldState, _: UpdateAction) => {
+export const cameraUpdateReducer = on('UpdateAction', (current: World, _: UpdateAction) => {
     const {player: rect, camera, canvasContext} = current;
 
     const rectRelativeToCamera = subtract(rect, camera);

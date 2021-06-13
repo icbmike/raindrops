@@ -1,9 +1,11 @@
-import { WorldState } from "../worldstate";
+import { Collidable } from "../../physics/Collidable";
+import { Wall } from "./wall";
 
-export const drawWalls = (context: CanvasRenderingContext2D, state: WorldState) => {
+export const drawWalls = (context: CanvasRenderingContext2D, wall: Wall) => {
     context.fillStyle = 'white';
+    
+    const {x, y, width, height} = wall.getComponent<Collidable>('Collidable')!
 
-    state.walls.forEach(wall => {
-        context.fillRect(wall.x, wall.y, wall.width, wall.height);
-    });
+    context.fillRect(x, y, width, height);
+   
 }

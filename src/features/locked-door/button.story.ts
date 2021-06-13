@@ -3,9 +3,9 @@ import { filter, map, mergeMap, withLatestFrom } from "rxjs/operators";
 import { Story } from "../../dooble/story";
 import { InputAction } from "../input/input";
 import { TriggerAction } from "../trigger/Trigger";
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 
-export const buttonStory : Story<WorldState> = (action$, state$) => {
+export const buttonStory : Story<World> = (action$, state$) => {
     return action$.pipe(
         filter(a => a.type == 'InputAction'),
         map(a => a as InputAction),

@@ -1,8 +1,9 @@
 import { DrawFunc } from "../../draw/draw";
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
+import { TransporterPair } from "./Transporter";
 
-export const drawTransporter: DrawFunc = (context: CanvasRenderingContext2D, state: WorldState) => {
-    state.transporters.flatMap(tp => [tp.t1, tp.t2]).forEach(t => {
+export const drawTransporter: DrawFunc<TransporterPair> = (context: CanvasRenderingContext2D, tp: TransporterPair) => {
+    [tp.t1, tp.t2].forEach(t => {
         
         const gradient = context.createRadialGradient(t.x, t.y, t.radius, t.x, t.y, (t.transportProgressPercent / 100) * t.radius);
         

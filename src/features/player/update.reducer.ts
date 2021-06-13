@@ -4,13 +4,14 @@ import { any } from '../../util/any';
 import { groupBy } from '../../util/group-by';
 import { findCollisions } from '../../physics/intersect';
 import { scale, size } from '../../physics/vector';
-import { WorldState } from '../worldstate';
+import { World } from '../worldstate';
 import { vectorFromInput } from '../input/vectorFromInput';
+import { Collidable } from '../../physics/Collidable';
 
 export const rectReducer = 
-    on('UpdateAction', (current: WorldState, action: UpdateAction) => {
+    on('UpdateAction', (current: World, action: UpdateAction) => {
         const { delta } = action.payload;
-        const { player: rect, walls, doors } = current;
+        const { player: rect} = current;
 
         const inputVector = vectorFromInput(current.input);
         const moveVector = scale(inputVector, delta * 0.5);
@@ -24,7 +25,13 @@ export const rectReducer =
         let newX;
         let newY;
 
-        const collisions = findCollisions([...walls, ...doors.filter(d =>d.state == 'Closed')], rect, moveVector);
+        const collidables = current.gameEntities.flatMap(ge => {
+            const c = ge.getComponent<Collidable>('Collidable');
+
+            return c?.collisionEnabled() ? [c] : [];
+        })
+
+        const collisions = findCollisions([...collidables], rect, moveVector);
 
         if(any(collisions)) {
             const collisionsBySide = groupBy(collisions, i => i.side);

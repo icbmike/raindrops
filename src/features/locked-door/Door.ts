@@ -1,7 +1,8 @@
-import { Trigger } from "../trigger/Trigger";
+import { TriggerComponent } from "../trigger/Trigger";
 import { Collidable } from "../../physics/Collidable";
+import { Component, GameEntity } from "../../dooble/GameEntity";
 
-export class Door implements Trigger, Collidable {
+export class Door extends GameEntity {
     constructor(
         public code: string,
         public state: 'Open' | 'Closed',
@@ -9,7 +10,11 @@ export class Door implements Trigger, Collidable {
         public y: number,
         public width: number,
         public height: number
-    ){}
-
-    collisionEnabled = () => this.state === 'Closed';
+    ){
+        super([
+            new Collidable(x, y, width, height, () => this.state === 'Closed'),
+            new TriggerComponent(code, () => this.state = this.state == 'Closed' ? 'Open' : 'Closed')
+        ]);
+    }
+    components: Component[];
 }

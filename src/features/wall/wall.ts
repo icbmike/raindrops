@@ -1,29 +1,18 @@
+import { GameEntity } from "../../dooble/GameEntity";
+import { DrawComponent } from "../../draw/draw.component";
 import { Collidable } from "../../physics/Collidable";
-import { Rect } from "../../physics/Rect";
-import { Component, GameEntity } from "../locked-door/locked-door.feature";
+import { drawWalls } from "./draw";
 
-export class Wall implements Rect {
-    constructor(
-        public x: number,
-        public y: number,
-        public width: number,
-        public height: number,
-    ) {}
-
-    collisionEnabled = () => true;
-}
-
-class Wall2 implements GameEntity {
-    components: Component[];
-
+export class Wall extends GameEntity {
     constructor(
         x: number,
         y: number,
         width: number,
         height: number){
-            this.components = [
-                new Collidable(x, y, width, height)
-            ]
+            super([
+                new Collidable(x, y, width, height),
+                new DrawComponent<Wall>(drawWalls)
+            ]);
         }
 }
 

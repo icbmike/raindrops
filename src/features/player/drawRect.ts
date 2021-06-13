@@ -1,6 +1,6 @@
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 
-export const drawRect = (context: CanvasRenderingContext2D, state: WorldState) => {
+export const drawRect = (context: CanvasRenderingContext2D, state: World) => {
     const { x, y, width, height} = state.player;
     
     context.fillStyle = 'white';

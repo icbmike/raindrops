@@ -3,7 +3,7 @@ import { map, tap } from "rxjs/operators";
 import { Action } from "../../dooble/action";
 import { on } from "../../dooble/reducer";
 import { Story } from "../../dooble/story";
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 
 export interface InputState {
     up:boolean;
@@ -52,9 +52,9 @@ const input$ =
         }))
     );
 
-export const inputStory: Story<WorldState> = () => input$;
+export const inputStory: Story<World> = () => input$;
 
-export const inputReducer = on('InputAction', (current: WorldState, action: InputAction) => {
+export const inputReducer = on('InputAction', (current: World, action: InputAction) => {
     return {
         ...current,
         input: {

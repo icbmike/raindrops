@@ -5,16 +5,15 @@ import { Wall } from "./wall/wall";
 import { Camera } from "./camera/Camera";
 import { TransporterPair } from "./transporter/Transporter";
 import { Button } from "./locked-door/Button";
-import { Door } from "./locked-door/Door";
+import { GameEntity } from "../dooble/GameEntity";
 
-export interface WorldState {
+export interface World {
     player: PlayerState;
+    gameEntities: GameEntity[]
     raindrops: Raindrop[],
-    input: InputState,
-    walls: Wall[],
+    input: InputState,    
     camera: Camera,
     canvasContext: CanvasRenderingContext2D,
     transporters: TransporterPair[],
-    doors: Door[],
     buttons: Button[]
 }

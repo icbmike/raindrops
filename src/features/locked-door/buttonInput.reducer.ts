@@ -1,8 +1,8 @@
 import { UpdateAction } from "../../dooble/action";
 import { on } from "../../dooble/reducer";
-import { WorldState } from "../worldstate";
+import { World } from "../worldstate";
 
-export const buttonInputReducer = on('InputAction', (current: WorldState, action: UpdateAction): WorldState => {
+export const buttonInputReducer = on('InputAction', (current: World, action: UpdateAction): World => {
     const {e} = current.input;
     const {buttons} = current;
     
@@ -16,7 +16,7 @@ export const buttonInputReducer = on('InputAction', (current: WorldState, action
 
         return {
             ...current,
-            buttons: newButtons
+            
         }
     }
 
