@@ -1,8 +1,30 @@
-export interface Wall {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+import { Collidable } from "../../physics/Collidable";
+import { Rect } from "../../physics/Rect";
+import { Component, GameEntity } from "../locked-door/locked-door.feature";
+
+export class Wall implements Rect {
+    constructor(
+        public x: number,
+        public y: number,
+        public width: number,
+        public height: number,
+    ) {}
+
+    collisionEnabled = () => true;
+}
+
+class Wall2 implements GameEntity {
+    components: Component[];
+
+    constructor(
+        x: number,
+        y: number,
+        width: number,
+        height: number){
+            this.components = [
+                new Collidable(x, y, width, height)
+            ]
+        }
 }
 
 export const initialWalls: Wall[] = [
@@ -55,4 +77,4 @@ export const initialWalls: Wall[] = [
         height: 10,
         width: 810
     },
-];
+].map(({x, y, width, height}) => new Wall(x, y, width, height));
