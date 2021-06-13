@@ -55,10 +55,5 @@ const input$ =
 export const inputStory: Story<World> = () => input$;
 
 export const inputReducer = on('InputAction', (current: World, action: InputAction) => {
-    return {
-        ...current,
-        input: {
-            ...action.payload
-        }
-    }
+    current.input = action.payload;
 });

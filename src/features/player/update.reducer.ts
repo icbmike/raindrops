@@ -20,7 +20,7 @@ function playerUpdate(player: Player, moveVector: Vector, gameEntities: GameEnti
         return c?.collisionEnabled() ? [c] : [];
     })
 
-    const playerCollidable = player.getComponent<Collidable>('Collidanble')!;
+    const playerCollidable = player.getComponent<Collidable>('Collidable')!;
 
     const collisions = findCollisions([...collidables], playerCollidable, moveVector);
 
@@ -71,7 +71,7 @@ export const PlayerMoveSystem =
 
         const { x: newX , y: newY } = playerUpdate(player, moveVector, gameEntities)
         
-        const playerCollidable = player.getComponent<Collidable>('Collidanble')!;
+        const playerCollidable = player.getComponent<Collidable>('Collidable')!;
         playerCollidable.x = newX;
         playerCollidable.y = newY;
     }

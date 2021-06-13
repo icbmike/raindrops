@@ -15,7 +15,7 @@ console.log('starting loop');
 const features: Feature[] = [
     //createRaindropsFeature(context),
     cameraFeature,
-    //inputFeature,
+    inputFeature,
     wallsFeature,
     //lockedDoorFeature,
     //transporterFeature,

@@ -1,5 +1,4 @@
 import { Collidable } from "../../physics/Collidable";
-import { World } from "../worldstate";
 import { Player } from "./Player";
 
 export const drawPlayer = (context: CanvasRenderingContext2D, player: Player) => {
