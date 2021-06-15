@@ -1,12 +1,20 @@
 import { GameEntity } from "../../dooble/GameEntity";
+import { DrawComponent } from "../../draw/draw.component";
 import { Vector } from "../../physics/vector";
+import { drawTransporter } from "./drawTransporter";
 
-export interface Transporter {
-    x: number;
-    y: number;
-    radius: number;
-    exitDirection: Vector
-    transportProgressPercent: number; 
+export class Transporter extends GameEntity{
+    constructor(
+        public x: number,
+        public y: number,
+        public radius: number,
+        public exitDirection: Vector,
+        public transportProgressPercent: number
+    ){
+        super([
+            new DrawComponent(drawTransporter)
+        ])
+    }
 }
 
 export type TransporterPairState = 
