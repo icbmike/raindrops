@@ -1,19 +1,30 @@
 import { DrawFunc } from "../../draw/draw";
-import { World } from "../worldstate";
-import { Button } from "./Button";
+import { Button, InteractiveComponent } from "./Button";
 
 export const drawButton: DrawFunc<Button> = (context: CanvasRenderingContext2D, b: Button) => {
-    const {x, y, on, interactive} = b;
+    const ic = b.getComponent<InteractiveComponent>('InteractiveComponent')!;
 
-    if(interactive){
-        const g = context.createRadialGradient(x + 7.5, y + 15, 0, x + 7.5, y + 15, 20)
+    const {isInteractive, interactiveArea} = ic;
+
+    if(isInteractive){
+        const {x, y, width, height} = interactiveArea;
+
+        const g = context.createRadialGradient(
+            x + width / 2, 
+            y + height / 2, 
+            0, 
+            x + width / 2, 
+            y + height / 2, 
+            20
+        )
 
         g.addColorStop(0, 'rgba(253,216,53,0.5)');
         g.addColorStop(1, 'rgba(0,0,0,1)');
         context.fillStyle = g;
-        context.fillRect(x - 10, y - 10, 35, 50);
+        context.fillRect(x, y, width, height);
     }
 
+    const {on, x, y} = b;
     context.fillStyle = 'gray';
     context.fillRect(x, y, 15, 30);
 

@@ -1,9 +1,10 @@
 import { Feature } from "../../dooble/feature";
 import { Button } from "./Button";
+import { InteractiveSystem } from "./button.reducer";
 import { Door } from "./Door";
 
 export const lockedDoorFeature: Feature = {
-    reducers: [],
+    reducers: [InteractiveSystem],
     stories: [],
     gameEntities: [
         new Door(
@@ -18,7 +19,6 @@ export const lockedDoorFeature: Feature = {
             '#door-1',
             1300,
             400,
-            false,
             false,
         )
     ]    

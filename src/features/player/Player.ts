@@ -15,4 +15,8 @@ export class Player extends GameEntity {
             new DrawComponent<Player>(drawPlayer)
         ]);
     }
+
+    get colliable(){
+        return this.getComponent<Collidable>('Collidable')!;
+    }
 }

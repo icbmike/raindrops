@@ -1,28 +1,22 @@
 import { UpdateAction } from "../../dooble/action";
 import { on } from "../../dooble/reducer";
 import { rectsOverlap } from "../../physics/intersect";
-import { Rect } from "../../physics/Rect";
+import { InputAction } from "../input/input";
 import { World } from "../worldstate";
-import { Button } from "./Button";
+import { InteractiveComponent } from "./Button";
 
-export const buttonUpdateReducer = on('UpdateAction', (current: World, action: UpdateAction): World => {
+export const InteractiveSystem = on('UpdateAction', (world: World, _: UpdateAction) => {
+    const playerCollidable = world.player.colliable;
+    
+    const interactiveGameEntities = world.gameEntities.flatMap(ge => {
+        const ic = ge.getComponent<InteractiveComponent>('InteractiveComponent');
 
-    // const newButtons: Button[] = buttons.map(b => 
-    // {
-    //     const interactiveSpace: Rect = {
-    //         x: b.x - 20,
-    //         y: b.y - 20,
-    //         width: 55,
-    //         height: 70
-    //     };
+        return ic ? [ic] : [];
+    });
 
-    //     return {
-    //         ...b,
-    //         interactive: rectsOverlap(interactiveSpace, player)
-    //     };
-    // });
-
-    return {
-        ...current,
+    for (let i = 0; i < interactiveGameEntities.length; i++) {
+        const ic = interactiveGameEntities[i];
+        
+        ic.isInteractive = rectsOverlap(ic.interactiveArea, playerCollidable);
     }
 });
