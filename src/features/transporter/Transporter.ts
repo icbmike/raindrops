@@ -2,26 +2,36 @@ import { GameEntity } from "../../dooble/GameEntity";
 import { DrawComponent } from "../../draw/draw.component";
 import { Vector } from "../../physics/vector";
 import { drawTransporter } from "./drawTransporter";
+import { TransporterComponent } from "./TransporterComponent";
 
 export class Transporter extends GameEntity{
+    private _transporterComponent: TransporterComponent;
+
     constructor(
-        public x: number,
-        public y: number,
-        public radius: number,
-        public exitDirection: Vector,
-        public transportProgressPercent: number
+        x: number,
+        y: number,
+        radius: number,
+        exitDirection: Vector,
+        transporterId: string,
+        targetTransporter: string
     ){
         super([
-            new DrawComponent(drawTransporter)
+            new DrawComponent(drawTransporter),
+            new TransporterComponent(
+                'Idle', 
+                transporterId, 
+                targetTransporter,
+                x,
+                y,
+                radius,
+                exitDirection,
+            )
         ])
-    }
-}
 
-export type TransporterPairState = 
-    'Idle' | 'Transporting';
-    
-export class TransporterPair extends GameEntity{
-    t1: Transporter;
-    t2: Transporter;
-    state: TransporterPairState
+        this._transporterComponent = this.components.find(c => c.type === 'TransporterComponent') as TransporterComponent;
+    }
+
+    public get transporterCompoent(){
+        return this._transporterComponent;
+    }
 }

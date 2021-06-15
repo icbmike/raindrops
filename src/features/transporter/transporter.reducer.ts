@@ -1,134 +1,94 @@
 import { UpdateAction } from "../../dooble/action";
 import { on } from "../../dooble/reducer";
 import { circleContainsRect } from "../../physics/circle-contains-rect";
+import { Collidable } from "../../physics/Collidable";
 import { scale, size, subtract } from "../../physics/vector";
 import { replace } from "../../util/replace";
 import { World } from "../worldstate";
-import { Transporter, TransporterPairState } from "./Transporter";
+import { Transporter } from "./Transporter";
+import { TransporterState } from "./TransporterState";
+import { TransporterComponent } from "./TransporterComponent";
 
-export const transporterUpdateReducer = on('UpdateAction', (current: World, action: UpdateAction) => {
-    // const { delta } = action.payload;
-    // const {player} = current
+function transporterPairs(ts: Transporter[], t: Transporter) : {t1:Transporter, t2: Transporter} {
+    const {targetTransporter} = t.transporterCompoent;
 
-    // for(let i = 0; i < current.transporters.length; i++){
-    //     const pair = current.transporters[i];
+    const target = ts.find(t => t.transporterCompoent.transporterId === targetTransporter)!;
 
-    //     const { t1, t2 } = pair;
+    return { t1: t, t2: target };
+}
 
-    //     if(pair.state == 'Idle'){
-    //         let entryPad : Transporter | null;
-    //         let exitPad : Transporter | null;
+export const transporterUpdateReducer = on('UpdateAction', (world: World, action: UpdateAction) => {
+    const { delta } = action.payload;
+    const { player, gameEntities } = world
 
-    //         if(circleContainsRect(t1, current.player)){
-    //             entryPad = t1;
-    //             exitPad = t2;
-    //         }else if(circleContainsRect(t2, current.player)) {
-    //             entryPad = t2;
-    //             exitPad = t1;
-    //         }else {
-    //             entryPad = null;
-    //             exitPad = null;
-    //         }
+    const playerCollidable = player.getComponent<Collidable>('Collidable')!
 
-    //         if(entryPad && exitPad){
-    //             const newTransportProgress = entryPad.transportProgressPercent + 0.1 * delta;
-    //             const newState: TransporterPairState = newTransportProgress >= 100 ? 'Transporting' : 'Idle';
+    const ts = gameEntities.flatMap(ge => {
+        const tc = ge.getComponent<TransporterComponent>('TransporterComponent');
 
-    //             if(newState == 'Idle'){
-    //                 return {
-    //                     ...current,
-    //                     transporters: replace(current.transporters, i, {
-    //                         ...pair,
-    //                         state: newState,
-    //                         t1: {
-    //                             ...t1,
-    //                             transportProgressPercent: entryPad == t1 ? newTransportProgress: t1.transportProgressPercent
-    //                         },
-    //                         t2: {
-    //                             ...t2,
-    //                             transportProgressPercent: entryPad == t2 ? newTransportProgress: t2.transportProgressPercent
-    //                         }
-    //                     })
-    //                 }
-    //             } else {
-    //                 return {
-    //                     ...current,
-    //                     transporters: replace(current.transporters, i, {
-    //                         ...pair,
-    //                         state: newState,
-    //                         t1: {
-    //                             ...t1,
-    //                             transportProgressPercent: entryPad == t1 ? 100 : t1.transportProgressPercent
-    //                         },
-    //                         t2: {
-    //                             ...t2,
-    //                             transportProgressPercent: entryPad == t2 ? 100 : t2.transportProgressPercent
-    //                         }
-    //                     }),
-    //                     player: { // transport the player
-    //                         ...player,
-    //                         x: exitPad.x - player.width / 2,
-    //                         y: exitPad.y - player.height / 2
-    //                     }
-    //                 }
-    //             }
-    //         } else {
-    //             const newTransportProgress1 = t1.transportProgressPercent == 0 ? 0 : Math.max(0, t1.transportProgressPercent - 0.05 * delta);
-    //             const newTransportProgress2 = t2.transportProgressPercent == 0 ? 0 : Math.max(0, t2.transportProgressPercent - 0.05 * delta);
-    //             return {
-    //                 ...current,
-    //                 transporters: replace(current.transporters, i, {
-    //                     state: 'Idle',
-    //                     t1: {
-    //                         ...t1,
-    //                         transportProgressPercent: newTransportProgress1
-    //                     },
-    //                     t2: {
-    //                         ...t2,
-    //                         transportProgressPercent: newTransportProgress2
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     } else {
-    //         const exitPad = t1.transportProgressPercent == 100 ? t2 : t1;
+        return tc ? [ge as Transporter]: [];
+    });
 
-    //         // Move player out by exit direction
-    //         const moveVector = scale(exitPad.exitDirection, 0.3 * delta);
-    //         const newX = player.x + moveVector.x;
-    //         const newY = player.y + moveVector.y;
+    for(let i = 0; i < ts.length; i++){
+        const t = ts[i];
 
-    //         if(size(subtract(exitPad, player)) > t2.radius * 2){
-    //             return {
-    //                 ...current,
-    //                 player: {
-    //                     ...player,
-    //                     x: newX,
-    //                     y: newY
-    //                 },
-    //                 transporters: replace(current.transporters, i, {
-    //                     t1: {
-    //                         ...t1,
-    //                         transportProgressPercent: 0
-    //                     },
-    //                     t2: {
-    //                         ...t2,
-    //                         transportProgressPercent: 0
-    //                     },
-    //                     state: 'Idle',
-    //                 })
-    //             }
-    //         } 
-    //         return {
-    //             ...current,
-    //             player: {
-    //                 ...player,
-    //                 x: newX,
-    //                 y: newY
-    //             }
-    //         }
-    //     }
-    // }
+        const { t1, t2 } = transporterPairs(ts, t);
+
+        if (t1.transporterCompoent.state === 'Idle'){
+            let entryPad : TransporterComponent | null;
+            let exitPad : TransporterComponent | null;
+
+            if(circleContainsRect(t1.transporterCompoent, playerCollidable)){
+                entryPad = t1.transporterCompoent;
+                exitPad = t2.transporterCompoent;
+            }else if(circleContainsRect(t2.transporterCompoent, playerCollidable)){
+                entryPad = t2.transporterCompoent;
+                exitPad = t1.transporterCompoent;
+            } else {
+                entryPad = null;
+                exitPad = null;
+            }
+
+            if(entryPad && exitPad){
+                const newTransportProgress = entryPad.transportProgressPercent + 0.1 * delta;
+                const newState: TransporterState = newTransportProgress >= 100 ? 'Transporting' : 'Idle';
+
+                if(newState == 'Idle'){
+                    entryPad.state = newState;
+                    entryPad.transportProgressPercent = newTransportProgress;
+                } else {
+                    entryPad.state = newState;
+                    entryPad.transportProgressPercent = 100;
+
+                    playerCollidable.x = exitPad.x - playerCollidable.width / 2;
+                    playerCollidable.y = exitPad.y - playerCollidable.height / 2
+                }
+            } else {
+                const newTransportProgress1 = t1.transporterCompoent.transportProgressPercent == 0 ? 0 : Math.max(0, t1.transporterCompoent.transportProgressPercent - 0.05 * delta);
+                const newTransportProgress2 = t2.transporterCompoent.transportProgressPercent == 0 ? 0 : Math.max(0, t2.transporterCompoent.transportProgressPercent - 0.05 * delta);
+                
+                t1.transporterCompoent.transportProgressPercent = newTransportProgress1;
+                t2.transporterCompoent.transportProgressPercent = newTransportProgress2;
+            }
+        } else {
+            const exitPad = t1.transporterCompoent.transportProgressPercent == 100 ? t2 : t1;
+
+            // Move player out by exit direction
+            const moveVector = scale(exitPad.transporterCompoent.exitDirection, 0.3 * delta);
+            const newX = playerCollidable.x + moveVector.x;
+            const newY = playerCollidable.y + moveVector.y;
+
+            if(size(subtract(exitPad.transporterCompoent, playerCollidable)) > t2.transporterCompoent.radius * 2){
+                t1.transporterCompoent.transportProgressPercent = 0;
+                t2.transporterCompoent.transportProgressPercent = 0;
+                t1.transporterCompoent.state = 'Idle';
+                t2.transporterCompoent.state = 'Idle';
+            } 
+
+            playerCollidable.x = newX;
+            playerCollidable.y = newY;
+        }
+    }
     
-    return current;
+    return world;
 });

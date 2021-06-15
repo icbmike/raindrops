@@ -1,6 +1,5 @@
 import { Feature } from "../../dooble/feature";
-import { Down, Left, Up } from "../../physics/vector";
-import { drawTransporter } from "./drawTransporter";
+import { Left, Up } from "../../physics/vector";
 import { Transporter } from "./Transporter";
 import { transporterUpdateReducer } from "./transporter.reducer";
 
@@ -13,14 +12,16 @@ export const transporterFeature: Feature = {
             500,
             50,
             Up,
-            0
+            'a',
+            'b'
         ),
         new Transporter(
             1900,
             300,
             50,
             Left,
-            0
+            'b',
+            'a'
         )
     ],
 }
