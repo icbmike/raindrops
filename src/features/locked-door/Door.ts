@@ -1,6 +1,8 @@
 import { TriggerComponent } from "../trigger/Trigger";
 import { Collidable } from "../../physics/Collidable";
 import { Component, GameEntity } from "../../dooble/GameEntity";
+import { DrawComponent } from "../../draw/draw.component";
+import { drawDoor } from "./drawDoor";
 
 export class Door extends GameEntity {
     constructor(
@@ -13,7 +15,8 @@ export class Door extends GameEntity {
     ){
         super([
             new Collidable(x, y, width, height, () => this.state === 'Closed'),
-            new TriggerComponent(code, () => this.state = this.state == 'Closed' ? 'Open' : 'Closed')
+            new TriggerComponent(code, () => this.state = this.state == 'Closed' ? 'Open' : 'Closed'),
+            new DrawComponent(drawDoor)
         ]);
     }
     components: Component[];

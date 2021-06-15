@@ -1,10 +1,19 @@
 import { GameEntity } from "../../dooble/GameEntity";
-import { TriggerSource } from "../trigger/Trigger";
+import { DrawComponent } from "../../draw/draw.component";
+import { TriggerSourceComponent } from "../trigger/Trigger";
+import { drawButton } from "./drawButton";
 
-export class Button extends GameEntity implements TriggerSource {
-    emitCode: string;
-    x: number;
-    y: number;
-    on: boolean;
-    interactive: boolean;
+export class Button extends GameEntity {
+    constructor(
+        public emitCode: string,
+        public x: number,
+        public y: number,
+        public on: boolean,
+        public interactive: boolean
+    ){
+        super([
+            new TriggerSourceComponent(emitCode),
+            new DrawComponent<Button>(drawButton)
+        ])
+    }
 }

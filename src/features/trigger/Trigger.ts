@@ -25,3 +25,13 @@ export class TriggerComponent extends Component {
         super();
     }
 }
+
+export class TriggerSourceComponent extends Component {
+    readonly type = 'TriggerSource';
+
+    constructor(
+        public code: string
+    ){
+        super()
+    }
+}

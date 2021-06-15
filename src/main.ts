@@ -17,7 +17,7 @@ const features: Feature[] = [
     cameraFeature,
     inputFeature,
     wallsFeature,
-    //lockedDoorFeature,
+    lockedDoorFeature,
     //transporterFeature,
     playerFeature,
     //fpsFeature,

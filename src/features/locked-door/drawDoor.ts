@@ -1,8 +1,7 @@
 import { DrawFunc } from "../../draw/draw";
-import { World } from "../worldstate";
 import { Door } from "./Door";
 
-export const drawDoors: DrawFunc<Door> = (context: CanvasRenderingContext2D, d:Door) => {
+export const drawDoor: DrawFunc<Door> = (context: CanvasRenderingContext2D, d:Door) => {
     const isVertical = d.width < d.height;
 
     const thickness = isVertical ? d.width : d.height;
