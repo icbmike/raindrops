@@ -1,10 +1,10 @@
 import { Feature } from "../../dooble/feature";
 import { Left, Up } from "../../physics/vector";
 import { Transporter } from "./Transporter";
-import { transporterUpdateReducer } from "./transporter.reducer";
+import { transporterSystem } from "./transporter.reducer";
 
 export const transporterFeature: Feature = {
-    reducers: [transporterUpdateReducer],
+    reducers: [transporterSystem],
     stories: [],
     gameEntities: [
         new Transporter(

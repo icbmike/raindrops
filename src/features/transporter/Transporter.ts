@@ -31,7 +31,7 @@ export class Transporter extends GameEntity{
         this._transporterComponent = this.components.find(c => c.type === 'TransporterComponent') as TransporterComponent;
     }
 
-    public get transporterCompoent(){
+    public get transporterComponent(){
         return this._transporterComponent;
     }
 }
