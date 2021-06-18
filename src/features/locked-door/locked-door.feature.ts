@@ -1,12 +1,10 @@
 import { Feature } from "../../dooble/feature";
 import { Button } from "./Button";
-import { InteractiveSystem } from "./button.reducer";
-import { triggerSourceStory, triggerStory } from "./button.story";
 import { Door } from "./Door";
 
 export const lockedDoorFeature: Feature = {
-    reducers: [InteractiveSystem],
-    stories: [triggerSourceStory, triggerStory],
+    reducers: [],
+    stories: [],
     gameEntities: [
         new Door(
             '#door-1',

@@ -4,10 +4,11 @@ import { findComponents } from "../../dooble/GameEntity";
 import { Story } from "../../dooble/story";
 import { filterAction } from "../../util/filterAction";
 import { InputAction } from "../input/input";
-import { TriggerAction, TriggerComponent, TriggerSourceComponent } from "../trigger/Trigger";
+import { TriggerComponent } from "./TriggerComponent";
+import { TriggerAction } from "./TriggerAction";
+import { TriggerSourceComponent } from "./TriggerSourceComponent";
 import { World } from "../worldstate";
-import { InteractiveComponent } from "./Button";
-
+import { InteractiveComponent } from "./InteractiveComponent";
 
 export const triggerSourceStory : Story<World> = (action$, world$) => 
     action$.pipe(

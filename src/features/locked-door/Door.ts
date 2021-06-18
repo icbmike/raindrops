@@ -1,4 +1,4 @@
-import { TriggerComponent } from "../trigger/Trigger";
+import { TriggerComponent } from "../trigger/TriggerComponent";
 import { Collidable } from "../../physics/Collidable";
 import { Component, GameEntity } from "../../dooble/GameEntity";
 import { DrawComponent } from "../../draw/draw.component";

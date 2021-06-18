@@ -6,6 +6,7 @@ import { inputFeature } from "./features/input/input.feature";
 import { lockedDoorFeature } from "./features/locked-door/locked-door.feature";
 import { playerFeature } from "./features/player/player.feature";
 import { transporterFeature } from "./features/transporter/transporter.feature";
+import { triggerFeature } from "./features/trigger/trigger.feature";
 import { wallsFeature } from "./features/wall/walls.feature";
 import { loop } from "./loop";
 
@@ -17,6 +18,7 @@ const features: Feature[] = [
     //createRaindropsFeature(context),
     cameraFeature,
     inputFeature,
+    triggerFeature,
     wallsFeature,
     lockedDoorFeature,
     transporterFeature,

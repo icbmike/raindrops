@@ -1,5 +1,5 @@
 import { Feature } from "../../dooble/feature";
-import { PlayerMoveSystem } from "./update.reducer";
+import { PlayerMoveSystem } from "./playerUpdate";
 
 export const playerFeature: Feature = {
     reducers: [PlayerMoveSystem],

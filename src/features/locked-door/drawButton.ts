@@ -1,5 +1,6 @@
 import { DrawFunc } from "../../draw/draw";
-import { Button, InteractiveComponent } from "./Button";
+import { Button } from "./Button";
+import { InteractiveComponent } from "../trigger/InteractiveComponent";
 
 export const drawButton: DrawFunc<Button> = (context: CanvasRenderingContext2D, b: Button) => {
     const ic = b.getComponent<InteractiveComponent>('InteractiveComponent')!;

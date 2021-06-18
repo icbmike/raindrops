@@ -3,7 +3,7 @@ import { on } from "../../dooble/reducer";
 import { rectsOverlap } from "../../physics/intersect";
 import { InputAction } from "../input/input";
 import { World } from "../worldstate";
-import { InteractiveComponent } from "./Button";
+import { InteractiveComponent } from "./InteractiveComponent";
 
 export const InteractiveSystem = on('UpdateAction', (world: World, _: UpdateAction) => {
     const playerCollidable = world.player.colliable;
