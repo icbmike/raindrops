@@ -1,23 +1,36 @@
-import { EMPTY, of } from "rxjs";
-import { filter, map, mergeMap, withLatestFrom } from "rxjs/operators";
+import { from } from "rxjs";
+import { filter, ignoreElements, mergeMap, tap, withLatestFrom } from "rxjs/operators";
+import { findComponents } from "../../dooble/GameEntity";
 import { Story } from "../../dooble/story";
+import { filterAction } from "../../util/filterAction";
 import { InputAction } from "../input/input";
-import { TriggerAction } from "../trigger/Trigger";
+import { TriggerAction, TriggerComponent, TriggerSourceComponent } from "../trigger/Trigger";
 import { World } from "../worldstate";
+import { InteractiveComponent } from "./Button";
 
-// export const buttonStory : Story<World> = (action$, state$) => {
-//     return action$.pipe(
-//         filter(a => a.type == 'InputAction'),
-//         map(a => a as InputAction),
-//         filter(a => a.payload.e),
-//         withLatestFrom(state$),
-//         mergeMap(([_, state]) => {
-//             const interactiveButton = state.buttons.find(b => b.interactive)!
-//             if(interactiveButton){
-//                 return of(new TriggerAction({code: interactiveButton.emitCode}));
-//             }
 
-//             return EMPTY;
-//         })
-//     )
-// }
+export const triggerSourceStory : Story<World> = (action$, world$) => 
+    action$.pipe(
+        filterAction<InputAction>('InputAction'),
+        filter(a => a.payload.e),
+        withLatestFrom(world$),
+        mergeMap(([_, world]) => {
+            const triggerActions = findComponents<InteractiveComponent, TriggerSourceComponent>(world.gameEntities, InteractiveComponent.Type, TriggerSourceComponent.Type)
+                .filter(([ic, _]) => ic.isInteractive)
+                .map(([_, {code}]) => new TriggerAction({code}))
+
+            return from(triggerActions)
+        })
+    );
+
+export const triggerStory: Story<World> = (action$, world$) =>
+    action$.pipe(
+        filterAction<TriggerAction>('TriggerAction'),
+        withLatestFrom(world$),
+        tap<[TriggerAction, World]>(([action, world]) => {
+            findComponents<TriggerComponent>(world.gameEntities, TriggerComponent.Type)
+                .filter(tc => tc.code === action.payload.code)
+                .forEach(tc => tc.fn());
+        }),
+        ignoreElements()
+    )

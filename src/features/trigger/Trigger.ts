@@ -16,7 +16,8 @@ export class TriggerAction implements Action {
 }
 
 export class TriggerComponent extends Component {
-    readonly type = 'Trigger';
+    readonly type = TriggerComponent.Type;
+    static Type = 'TriggerComponent';
 
     constructor(
         public code: string,
@@ -27,11 +28,15 @@ export class TriggerComponent extends Component {
 }
 
 export class TriggerSourceComponent extends Component {
-    readonly type = 'TriggerSource';
+    static Type = 'TriggerSourceComponent';
 
     constructor(
         public code: string
     ){
         super()
+    }
+
+    get type(){
+        return TriggerSourceComponent.Type;
     }
 }

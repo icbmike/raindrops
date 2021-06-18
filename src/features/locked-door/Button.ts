@@ -19,9 +19,9 @@ export class Button extends GameEntity {
     }
 }
 
-
 export class InteractiveComponent extends Component {
-    readonly type = 'InteractiveComponent';
+    static Type = 'InteractiveComponent';
+    readonly type = InteractiveComponent.Type;
 
     public isInteractive = false;
 
