@@ -23,6 +23,10 @@ export const loop = (context: CanvasRenderingContext2D, features: Feature[]) => 
             leftSquareBracket: false,
             rightSquareBracket: false,
             e: false
+        },
+        inventory:{
+            gold: 0,
+            items: []
         }
     };
 

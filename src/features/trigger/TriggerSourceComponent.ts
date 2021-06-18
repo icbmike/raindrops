@@ -1,4 +1,4 @@
-import { Component } from "../../dooble/GameEntity";
+import { Component } from "../../dooble/Component";
 
 export class TriggerSourceComponent extends Component {
     static Type = 'TriggerSourceComponent';

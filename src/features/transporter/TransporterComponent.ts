@@ -1,4 +1,4 @@
-import { Component } from "../../dooble/GameEntity";
+import { Component } from "../../dooble/Component";
 import { Vector } from "../../physics/vector";
 import { TransporterState } from "./TransporterState";
 

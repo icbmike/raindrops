@@ -1,4 +1,5 @@
-import { Component, GameEntity } from "../dooble/GameEntity";
+import { GameEntity } from "../dooble/GameEntity";
+import { Component } from "../dooble/Component";
 import { Rect } from "./Rect";
 
 export class Collidable extends Component implements Rect {

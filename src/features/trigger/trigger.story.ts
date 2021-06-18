@@ -17,8 +17,8 @@ export const triggerSourceStory : Story<World> = (action$, world$) =>
         withLatestFrom(world$),
         mergeMap(([_, world]) => {
             const triggerActions = findComponents<InteractiveComponent, TriggerSourceComponent>(world.gameEntities, InteractiveComponent.Type, TriggerSourceComponent.Type)
-                .filter(([ic, _]) => ic.isInteractive)
-                .map(([_, {code}]) => new TriggerAction({code}))
+                .filter(({components: [ic, _]}) => ic.isInteractive)
+                .map(({components: [_, {code}]}) => new TriggerAction({code}))
 
             return from(triggerActions)
         })
@@ -30,8 +30,8 @@ export const triggerStory: Story<World> = (action$, world$) =>
         withLatestFrom(world$),
         tap<[TriggerAction, World]>(([action, world]) => {
             findComponents<TriggerComponent>(world.gameEntities, TriggerComponent.Type)
-                .filter(tc => tc.code === action.payload.code)
-                .forEach(tc => tc.fn());
+                .filter(({component: {code}}) => code === action.payload.code)
+                .forEach(({component: {fn}}) => fn());
         }),
         ignoreElements()
     )

@@ -1,4 +1,4 @@
-import { Component } from "../../dooble/GameEntity";
+import { Component } from "../../dooble/Component";
 import { Rect } from "../../physics/Rect";
 
 export class InteractiveComponent extends Component {

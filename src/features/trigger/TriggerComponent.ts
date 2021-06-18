@@ -1,5 +1,4 @@
-import { Component } from "../../dooble/GameEntity";
-
+import { Component } from "../../dooble/Component";
 
 export class TriggerComponent extends Component {
     readonly type = TriggerComponent.Type;
