@@ -41,7 +41,6 @@ export const initialWalls: Wall[] = [
         height: 10,
         width: 600
     },
-
     {
         x: 1200,
         y: 0,
@@ -66,4 +65,10 @@ export const initialWalls: Wall[] = [
         height: 10,
         width: 810
     },
+    {
+        x: 800,
+        y: 0,
+        width: 400,
+        height: 10
+    }
 ].map(({x, y, width, height}) => new Wall(x, y, width, height));
