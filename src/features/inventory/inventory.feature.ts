@@ -1,11 +1,8 @@
-import { Feature } from "../../dooble/feature";
+import { Feature } from "../../dooble/Feature";
 import { Gold } from "./Gold";
 import { pickupSystem } from "./pickupSystem";
 
 export const inventoryFeature: Feature = {
-    gameEntities:[
-        new Gold(550, 200, 200)
-    ],
     reducers:[pickupSystem],
     stories: []
 }

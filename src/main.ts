@@ -1,31 +1,23 @@
-import { Feature } from "./dooble/feature";
+import { Feature } from "./dooble/Feature";
 import { setupCanvas } from "./draw/canvas";
 import { cameraFeature } from "./features/camera/camera.feature";
-import { fpsFeature } from "./features/fps/fps.feature";
 import { inputFeature } from "./features/input/input.feature";
 import { inventoryFeature } from "./features/inventory/inventory.feature";
-import { lockedDoorFeature } from "./features/locked-door/locked-door.feature";
 import { playerFeature } from "./features/player/player.feature";
 import { transporterFeature } from "./features/transporter/transporter.feature";
 import { triggerFeature } from "./features/trigger/trigger.feature";
-import { wallsFeature } from "./features/wall/walls.feature";
+import { loadLevel } from "./level/loadLevel";
 import { loop } from "./loop";
 
 var [_, context] = setupCanvas(document.getElementById('canvas') as HTMLCanvasElement);
 
-console.log('starting loop');
-
 const features: Feature[] = [
-    //createRaindropsFeature(context),
     cameraFeature,
     inputFeature,
     triggerFeature,
-    wallsFeature,
-    lockedDoorFeature,
     transporterFeature,
     playerFeature,
-    inventoryFeature
-    //fpsFeature,
+    inventoryFeature,
 ]
 
-loop(context, features);
+loop(context, features, loadLevel());
