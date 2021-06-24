@@ -1,7 +1,7 @@
 import { Feature } from "../../dooble/Feature";
-import { cameraUpdateReducer, cameraZoomReducer } from "./camera-reducers";
+import { cameraUpdateSystem, cameraZoomSystem } from "./camera-reducers";
 
 export const cameraFeature: Feature = {
-    reducers: [cameraZoomReducer, cameraUpdateReducer],
+    systems: [cameraZoomSystem, cameraUpdateSystem],
     stories: []
 }

@@ -3,6 +3,6 @@ import { triggerSourceStory, triggerStory } from "./trigger.story";
 import { InteractiveSystem } from "./interactiveSystem";
 
 export const triggerFeature: Feature = {
-    reducers: [InteractiveSystem],
+    systems: [InteractiveSystem],
     stories: [triggerStory, triggerSourceStory]
 }

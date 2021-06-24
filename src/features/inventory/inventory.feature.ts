@@ -3,7 +3,7 @@ import { Gold } from "./Gold";
 import { pickupSystem } from "./pickupSystem";
 
 export const inventoryFeature: Feature = {
-    reducers:[pickupSystem],
+    systems:[pickupSystem],
     stories: []
 }
 

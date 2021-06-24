@@ -2,7 +2,7 @@ import { Transporter } from "./Transporter";
 import { TransporterState } from "./TransporterState";
 import { TransporterComponent } from "./TransporterComponent";
 import { UpdateAction } from "../../dooble/action";
-import { on } from "../../dooble/reducer";
+import { on } from "../../dooble/system";
 import { circleContainsRect } from "../../physics/circle-contains-rect";
 import { Collidable } from "../../physics/Collidable";
 import { scale, size, subtract } from "../../physics/vector";

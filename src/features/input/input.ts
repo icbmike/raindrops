@@ -1,7 +1,7 @@
 import { fromEvent, merge } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import { Action } from "../../dooble/action";
-import { on } from "../../dooble/reducer";
+import { on } from "../../dooble/system";
 import { Story } from "../../dooble/story";
 import { World } from "../worldstate";
 

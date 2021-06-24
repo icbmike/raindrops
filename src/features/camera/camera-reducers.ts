@@ -1,11 +1,11 @@
 import { UpdateAction } from "../../dooble/action";
-import { on } from "../../dooble/reducer";
+import { on } from "../../dooble/system";
 import { World } from "../worldstate";
 import { InputAction } from "../input/input";
 import { subtract } from "../../physics/vector";
 import { Collidable } from "../../physics/Collidable";
 
-export const cameraZoomReducer = on('InputAction', (world: World, action: InputAction) => {
+export const cameraZoomSystem = on('InputAction', (world: World, action: InputAction) => {
     const delta = (action.payload.leftSquareBracket ? -0.1 : 0) + (action.payload.rightSquareBracket ? 0.1 : 0);
     
     world.camera = {
@@ -14,7 +14,7 @@ export const cameraZoomReducer = on('InputAction', (world: World, action: InputA
     };
 })
 
-export const cameraUpdateReducer = on('UpdateAction', (world: World, _: UpdateAction) => {
+export const cameraUpdateSystem = on('UpdateAction', (world: World, _: UpdateAction) => {
     const { player, camera, canvasContext } = world;
 
     const playerCollidable = player.getComponent<Collidable>('Collidable')!;

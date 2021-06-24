@@ -34,7 +34,7 @@ export const loop = (context: CanvasRenderingContext2D, features: Feature[], lev
     const dooble = new Dooble<World>(
         initialState as any, 
         [
-            ...features.flatMap(f => f.reducers)
+            ...features.flatMap(f => f.systems)
         ], 
         [
             ...features.flatMap(f => f.stories)

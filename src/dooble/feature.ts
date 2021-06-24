@@ -1,9 +1,9 @@
 import { World } from "../features/worldstate";
 import { Action } from "./action";
-import { Reducer } from "./reducer";
+import { System } from "./system";
 import { Story } from "./story";
 
 export interface Feature {
-    reducers: Reducer<World, Action>[],
+    systems: System<World, Action>[],
     stories: Story<World>[]
 }

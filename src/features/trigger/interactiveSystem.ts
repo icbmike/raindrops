@@ -1,5 +1,5 @@
 import { UpdateAction } from "../../dooble/action";
-import { on } from "../../dooble/reducer";
+import { on } from "../../dooble/system";
 import { rectsOverlap } from "../../physics/intersect";
 import { InputAction } from "../input/input";
 import { World } from "../worldstate";

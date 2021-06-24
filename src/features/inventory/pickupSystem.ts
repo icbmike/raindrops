@@ -1,7 +1,7 @@
 import { UpdateAction } from "../../dooble/action";
 import { findComponents } from "../../dooble/GameEntity";
 import { PositionComponent } from "../../dooble/PositionComponent";
-import { on } from "../../dooble/reducer";
+import { on } from "../../dooble/system";
 import { rectsOverlap } from "../../physics/intersect";
 import { any } from "../../util/any";
 import { World } from "../worldstate";

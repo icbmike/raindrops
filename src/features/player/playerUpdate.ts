@@ -1,5 +1,5 @@
 import { UpdateAction } from '../../dooble/action';
-import { on } from '../../dooble/reducer';
+import { on } from '../../dooble/system';
 import { any } from '../../util/any';
 import { groupBy } from '../../util/group-by';
 import { findCollisions } from '../../physics/intersect';

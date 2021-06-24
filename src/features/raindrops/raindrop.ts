@@ -1,5 +1,5 @@
 import { UpdateAction } from "../../dooble/action";
-import { on } from "../../dooble/reducer";
+import { on } from "../../dooble/system";
 import { NewRaindropAction } from "./actions";
 
 import { World } from "../worldstate";
