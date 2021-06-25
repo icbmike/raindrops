@@ -3,6 +3,7 @@ import { setupCanvas } from "./draw/canvas";
 import { cameraFeature } from "./features/camera/camera.feature";
 import { inputFeature } from "./features/input/input.feature";
 import { inventoryFeature } from "./features/inventory/inventory.feature";
+import { mapFeature } from "./features/map/map.feature";
 import { playerFeature } from "./features/player/player.feature";
 import { transporterFeature } from "./features/transporter/transporter.feature";
 import { triggerFeature } from "./features/trigger/trigger.feature";
@@ -18,6 +19,7 @@ const features: Feature[] = [
     transporterFeature,
     playerFeature,
     inventoryFeature,
+    mapFeature
 ]
 
 loop(context, features, loadLevel());
