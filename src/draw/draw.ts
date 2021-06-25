@@ -1,12 +1,13 @@
 import { GameEntity } from "../dooble/GameEntity";
 import { World } from "../features/worldstate";
+import { Assets } from "./Assets";
 import { DrawComponent } from "./draw.component";
 
 export interface DrawFunc<T extends GameEntity> {
-    (context: CanvasRenderingContext2D, state: T) : void;
+    (context: CanvasRenderingContext2D, state: T, assets: Assets) : void;
 }
 
-export function redraw(context: CanvasRenderingContext2D, world: World) {
+export function redraw(context: CanvasRenderingContext2D, world: World, assets: Assets) {
     // clear the canvas
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     
@@ -19,7 +20,7 @@ export function redraw(context: CanvasRenderingContext2D, world: World) {
     });
 
     drawFuncs.forEach(({df, g}) => {
-        df(context, g);
+        df(context, g, assets);
     });
 
     context.resetTransform();

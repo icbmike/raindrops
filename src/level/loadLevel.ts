@@ -2,7 +2,6 @@ import { Gold } from "../features/inventory/Gold";
 import { Button } from "../features/locked-door/Button";
 import { Door } from "../features/locked-door/Door";
 import { Transporter } from "../features/transporter/Transporter";
-import { Wall } from "../features/wall/wall";
 import { Up, Left } from "../physics/vector";
 import { Level } from "./Level";
 import { Map } from '../features/map/map';
@@ -49,6 +48,7 @@ const map = new Map(1000, 1000, [
 export function loadLevel(): Level {
     return {
         gameEntities: [
+            map,
             new Gold(550, 200, 200),
             new Door(
                 '#door-1',
@@ -80,7 +80,6 @@ export function loadLevel(): Level {
                 'b',
                 'a'
             ),
-            map
         ]
     }
 }

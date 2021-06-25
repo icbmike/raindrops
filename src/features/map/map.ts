@@ -16,4 +16,8 @@ export class Map extends GameEntity {
             new MapComponent(width, height, accessibleAreas)
         ]);
     }
+
+    get mapComponent(){
+        return this.getComponent<MapComponent>(MapComponent.Type)!;
+    }
 }
