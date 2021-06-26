@@ -2,10 +2,9 @@ import { Assets } from "./Assets";
 import { loadImage } from "../draw/loadImage";
 import { assets } from "./assetList";
 import { partition } from "../util/partition";
-import { Animation } from './Animation';
 
 export async function loadAssets(): Promise<Assets> {
-    const images = await Promise.all(assets.map(({name, src, process}) => {
+    const images = await Promise.all(assets.map(({name, src, processAnimation: process}) => {
         return loadImage(src).then(img => ({name, img, process}))
     }));
 
