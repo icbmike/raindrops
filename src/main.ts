@@ -10,7 +10,7 @@ import { transporterFeature } from "./features/transporter/transporter.feature";
 import { triggerFeature } from "./features/trigger/trigger.feature";
 import { World } from "./features/worldstate";
 import { loadLevel } from "./level/loadLevel";
-import { loadAssets } from "./loadAssets";
+import { loadAssets } from "./assets/loadAssets";
 import { loop } from "./loop";
 
 var [_, context] = setupCanvas(document.getElementById('canvas') as HTMLCanvasElement);

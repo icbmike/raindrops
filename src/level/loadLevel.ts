@@ -6,44 +6,28 @@ import { Up, Left } from "../physics/vector";
 import { Level } from "./Level";
 import { Map } from '../features/map/map';
 
-const map = new Map(1000, 1000, [
+const map = new Map(
+    {
+        x: -1000,
+        y: 1000,
+        width: 2000,
+        height: 2000
+    }, 
     [
-        {
-            x: 0,
-            y: 0,
-        },
-        {
-            x: 800,
-            y: 0,
-        },
-        {
-            x: 800,
-            y: 800,
-        },
-        {
-            x: 0,
-            y: 800,
-        },
-    ],
-    [
-        {
-            x: 1200,
-            y: 0,
-        },
-        {
-            x: 2000,
-            y: 0,
-        },
-        {
-            x: 2000,
-            y: 800,
-        },
-        {
-            x: 1200,
-            y: 800,
-        },
+        [
+            { x: 0, y: 0, },
+            { x: 800, y: 0, },
+            { x: 800, y: 800, },
+            { x: 0, y: 800, },
+        ],
+        [
+            { x: 1200, y: 0, },
+            { x: 2000,  y: 0, },
+            { x: 2000, y: 800, },
+            { x: 1200, y: 800, },
+        ]
     ]
-]);
+);
 
 export function loadLevel(): Level {
     return {

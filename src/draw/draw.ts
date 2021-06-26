@@ -1,6 +1,6 @@
 import { GameEntity } from "../dooble/GameEntity";
 import { World } from "../features/worldstate";
-import { Assets } from "./Assets";
+import { Assets } from "../assets/Assets";
 import { DrawComponent } from "./draw.component";
 
 export interface DrawFunc<T extends GameEntity> {

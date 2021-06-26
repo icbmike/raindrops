@@ -3,7 +3,7 @@ import { redraw } from "./draw/draw";
 import { World } from "./features/worldstate";
 import { StartAction, UpdateAction } from "./dooble/action";
 import { Feature } from "./dooble/Feature";
-import { Assets } from "./draw/Assets";
+import { Assets } from "./assets/Assets";
 
 export const loop = (context: CanvasRenderingContext2D, features: Feature[], world: World, assets: Assets) => {
     const dooble = new Dooble<World>(
