@@ -4,10 +4,17 @@ import { Map } from './Map';
 
 export const drawMap: DrawFunc<Map> = (context: CanvasRenderingContext2D, map: Map, assets: Assets) => {
     const grass = assets.images['grass_tile']!;
+    const water = assets.animations['water']!;
 
-    const patt = context.createPattern(grass, 'repeat')!;
+    const grassPattern = context.createPattern(grass, 'repeat')!;
+    const waterPattern = context.createPattern(water.frames[0], 'repeat')!;
 
-    const { accessibleAreas } = map.mapComponent;
+    const { accessibleAreas, bounds } = map.mapComponent;
+
+    context.fillStyle = waterPattern;
+    context.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+    context.fillStyle = grassPattern;
 
     for (let i = 0; i < accessibleAreas.length; i++) {
         const area = accessibleAreas[i];
@@ -24,7 +31,6 @@ export const drawMap: DrawFunc<Map> = (context: CanvasRenderingContext2D, map: M
 
         context.closePath();
 
-        context.fillStyle = patt;
         context.fill();
     }
 }

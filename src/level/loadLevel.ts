@@ -8,10 +8,10 @@ import { Map } from '../features/map/map';
 
 const map = new Map(
     {
-        x: -1000,
-        y: 1000,
-        width: 2000,
-        height: 2000
+        x: -200,
+        y: -200,
+        width: 10000,
+        height: 10000
     }, 
     [
         [
