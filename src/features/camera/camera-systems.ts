@@ -1,18 +1,8 @@
 import { UpdateAction } from "../../dooble/action";
 import { on } from "../../dooble/system";
 import { World } from "../worldstate";
-import { InputAction } from "../input/input";
 import { subtract } from "../../physics/vector";
 import { Collidable } from "../../physics/Collidable";
-
-export const cameraZoomSystem = on('InputAction', (world: World, action: InputAction) => {
-    const delta = (action.payload.leftSquareBracket ? -0.1 : 0) + (action.payload.rightSquareBracket ? 0.1 : 0);
-    
-    world.camera = {
-        ...world.camera,
-        zoom: world.camera.zoom + delta
-    };
-})
 
 export const cameraUpdateSystem = on('UpdateAction', (world: World, _: UpdateAction) => {
     const { player, camera, canvasContext } = world;
@@ -38,7 +28,7 @@ export const cameraUpdateSystem = on('UpdateAction', (world: World, _: UpdateAct
 
     world.camera = {
         ...camera,
-        x: Math.max(0, Math.min(2000, newX)),
-        y: Math.max(0, Math.min(1000, newY))
+        x: newX,
+        y: newY
     };
 });
