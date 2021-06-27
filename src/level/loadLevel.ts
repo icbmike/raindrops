@@ -38,7 +38,7 @@ export function loadLevel(): Level {
                 '#door-1',
                 'Closed',
                 600,
-                800,
+                1800,
                 200,
                 10,
             ),

@@ -11,7 +11,7 @@ export class Wall extends GameEntity {
         height: number){
             super([
                 new Collidable(x, y, width, height),
-                new DrawComponent<Wall>(drawWalls)
+                //new DrawComponent<Wall>(drawWalls)
             ]);
         }
 }
