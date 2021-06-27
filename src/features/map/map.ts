@@ -1,5 +1,5 @@
 import { GameEntity } from "../../dooble/GameEntity";
-import { DrawComponent } from "../../draw/draw.component";
+import { DrawComponent } from "../../draw/DrawComponent";
 import { Point } from "../../physics/Point";
 import { Rect } from "../../physics/Rect";
 import { drawMap } from "./drawMap";

@@ -1,5 +1,5 @@
 import { GameEntity } from "../../dooble/GameEntity";
-import { DrawComponent } from "../../draw/draw.component";
+import { DrawComponent } from "../../draw/DrawComponent";
 import { TriggerComponent } from "../trigger/TriggerComponent";
 import { TriggerSourceComponent } from "../trigger/TriggerSourceComponent";
 import { drawButton } from "./drawButton";

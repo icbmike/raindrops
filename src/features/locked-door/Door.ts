@@ -2,7 +2,7 @@ import { TriggerComponent } from "../trigger/TriggerComponent";
 import { Collidable } from "../../physics/Collidable";
 import { GameEntity } from "../../dooble/GameEntity";
 import { Component } from "../../dooble/Component";
-import { DrawComponent } from "../../draw/draw.component";
+import { DrawComponent } from "../../draw/DrawComponent";
 import { drawDoor } from "./drawDoor";
 
 export class Door extends GameEntity {

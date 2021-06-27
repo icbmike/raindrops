@@ -1,7 +1,7 @@
 import { GameEntity } from "../dooble/GameEntity";
 import { World } from "../features/worldstate";
 import { Assets } from "../assets/Assets";
-import { DrawComponent } from "./draw.component";
+import { DrawComponent } from "./DrawComponent";
 
 export interface DrawFunc<T extends GameEntity> {
     (context: CanvasRenderingContext2D, state: T, assets: Assets) : void;

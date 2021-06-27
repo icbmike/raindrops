@@ -5,6 +5,7 @@ import { Transporter } from "../features/transporter/Transporter";
 import { Up, Left } from "../physics/vector";
 import { Level } from "./Level";
 import { Map } from '../features/map/map';
+import { Tree } from "../features/tree/Tree";
 
 const map = new Map(
     {
@@ -64,6 +65,9 @@ export function loadLevel(): Level {
                 'b',
                 'a'
             ),
+            new Tree(200, 200, 'tree_dark'),
+            new Tree(300, 200, 'tree_light'),
+            new Tree(200, 500, 'tree_dark'),
         ]
     }
 }

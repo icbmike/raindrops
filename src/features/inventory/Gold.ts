@@ -1,6 +1,6 @@
 import { GameEntity } from "../../dooble/GameEntity";
 import { PositionComponent } from "../../dooble/PositionComponent";
-import { DrawComponent } from "../../draw/draw.component";
+import { DrawComponent } from "../../draw/DrawComponent";
 import { drawGold } from "./drawGold";
 import { PickupComponent } from "./PickupComponent";
 
