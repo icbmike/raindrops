@@ -12,7 +12,7 @@ export class Map extends GameEntity {
         bounds: Rect,
         accessibleAreas: Area[]){
         super([
-            new DrawComponent(drawMap),
+            //new DrawComponent(drawMap),
             new MapComponent(bounds, accessibleAreas)
         ]);
     }

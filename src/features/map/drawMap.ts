@@ -66,19 +66,19 @@ function drawArea(
         // assume clockwise
         if(diff.y == 0 && diff.x > 0){
             context.fillStyle = waterBankTopPattern;
-            context.fillRect(p1.x + 16, p1.y, diff.x - 32, 16);
+            context.fillRect(p1.x, p1.y, diff.x, 16);
         }
         else if(diff.x == 0 && diff.y > 0){
             context.fillStyle = waterBankRightPattern;
-            context.fillRect(p1.x - 16, p1.y + 16, 16, diff.y - 32);
+            context.fillRect(p1.x - 16, p1.y, 16, diff.y - 16);
         }
         else if(diff.y == 0 && diff.x < 0){
             context.fillStyle = waterBankBottomPattern;
-            context.fillRect(p2.x + 16, p2.y - 16, diff.x * -1 - 32, 16);
+            context.fillRect(p2.x, p2.y - 16, diff.x * -1 - 16, 16);
         }
         else if(diff.x == 0 && diff.y < 0){
             context.fillStyle = waterBankLeftPattern;
-            context.fillRect(p2.x, p2.y + 16, 16, diff.y * -1 - 32);
+            context.fillRect(p2.x, p2.y + 16, 16, diff.y * -1 - 16);
         }
  
         const diffP3 = subtract(p1, p3);
