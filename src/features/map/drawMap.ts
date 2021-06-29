@@ -1,4 +1,3 @@
-import { repeat } from "rxjs/operators";
 import { Assets } from "../../assets/Assets";
 import { DrawFunc } from "../../draw/draw";
 import { Rect } from "../../physics/Rect";
@@ -55,44 +54,44 @@ function drawArea(
 
     // Draw waterbank
     for (let i = 0; i < area.length; i++) {
-        const p1 = area[i];
-        const p2 = area[(i + 1) % area.length];
+        const p = area[i];
+        const pNext = area[(i + 1) % area.length];
 
         const prevIndex = (i - 1) % area.length + (i == 0 ? area.length : 0);
 
-        const p3 = area[prevIndex];
-        const diff = subtract(p2, p1);
+        const pPrev = area[prevIndex];
+        const diffNext = subtract(pNext, p);
         
         // assume clockwise
-        if(diff.y == 0 && diff.x > 0){
+        if(diffNext.y == 0 && diffNext.x > 0){
             context.fillStyle = waterBankTopPattern;
-            context.fillRect(p1.x, p1.y, diff.x, 16);
+            context.fillRect(p.x, p.y, diffNext.x, 16);
         }
-        else if(diff.x == 0 && diff.y > 0){
+        else if(diffNext.x == 0 && diffNext.y > 0){
             context.fillStyle = waterBankRightPattern;
-            context.fillRect(p1.x - 16, p1.y, 16, diff.y - 16);
+            context.fillRect(p.x - 16, p.y, 16, diffNext.y - 16);
         }
-        else if(diff.y == 0 && diff.x < 0){
+        else if(diffNext.y == 0 && diffNext.x < 0){
             context.fillStyle = waterBankBottomPattern;
-            context.fillRect(p2.x, p2.y - 16, diff.x * -1 - 16, 16);
+            context.fillRect(pNext.x, pNext.y - 16, diffNext.x * -1 - 16, 16);
         }
-        else if(diff.x == 0 && diff.y < 0){
+        else if(diffNext.x == 0 && diffNext.y < 0){
             context.fillStyle = waterBankLeftPattern;
-            context.fillRect(p2.x, p2.y + 16, 16, diff.y * -1 - 16);
+            context.fillRect(pNext.x, pNext.y + 16, 16, diffNext.y * -1 - 16);
         }
  
-        const diffP3 = subtract(p1, p3);
-        if(diffP3.x > 0 && diff.y > 0){
-            context.drawImage(waterBankTopRight, p1.x - 16, p1.y);
+        const diffPrev = subtract(p, pPrev);
+        if(diffPrev.x > 0 && diffNext.y > 0){
+            context.drawImage(waterBankTopRight, p.x - 16, p.y);
         }
-        else if(diffP3.y > 0 && diff.x < 0){
-            context.drawImage(waterBankBottomRight, p1.x - 16, p1.y - 16);
+        else if((diffPrev.y > 0 && diffNext.x < 0) || (diffPrev.x > 0 && diffNext.y < 0)){
+            context.drawImage(waterBankBottomRight, p.x - 16, p.y - 16);
         }
-        else if(diffP3.x < 0 && diff.y < 0){
-            context.drawImage(waterBankBottomLeft, p1.x, p1.y - 16);
+        else if(diffPrev.x < 0 && diffNext.y < 0){
+            context.drawImage(waterBankBottomLeft, p.x, p.y - 16);
         }
-        else if(diffP3.y < 0 && diff.x > 0){
-            context.drawImage(waterBankTopLeft, p1.x, p1.y);
+        else if(diffPrev.y < 0 && diffNext.x > 0){
+            context.drawImage(waterBankTopLeft, p.x, p.y);
         }
     }
 }
