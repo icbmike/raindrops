@@ -1,11 +1,12 @@
-export async function processSpriteSheet(img: HTMLImageElement): Promise<{ name: string, img: CanvasImageSource }[]> {
-    const lightTreeBm = await createImageBitmap(img, 0, 32, 64, 64);
-    const darkTreeBm = await createImageBitmap(img, 64, 32, 64, 64);
-    const orangeTreeBm = await createImageBitmap(img, 128, 32, 64, 64);
+import { processSprite } from "./processSprite";
+import { SpriteMapping } from "./SpriteMapping";
 
-    return [
-        { name: 'tree_light', img: lightTreeBm },
-        { name: 'tree_dark', img: darkTreeBm },
-        { name: 'tree_orange', img: orangeTreeBm },
+export async function processSpriteSheet(img: HTMLImageElement): Promise<{ name: string, img: CanvasImageSource }[]> {
+    const mappings: SpriteMapping[] = [
+        { name: 'tree_light', x: 0, y: 32, width: 64, height: 64 },
+        { name: 'tree_dark', x: 64, y: 32, width: 64, height: 64 },
+        { name: 'tree_orange', x: 128, y: 32, width: 64, height: 64 },
     ];
+
+    return processSprite(img, mappings);
 }
