@@ -20,10 +20,6 @@ function drawWater(context: CanvasRenderingContext2D, assets: Assets, bounds: Re
     context.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 }
 
-function x(){
-    
-}
-
 function drawArea(
     context: CanvasRenderingContext2D,
     grassPattern: CanvasPattern,
@@ -41,6 +37,165 @@ function drawArea(
     waterBankTopLeftConcave: CanvasImageSource,
     area: Area
 ) {
+    const waterBankTopPattern = context.createPattern(waterBankTop, 'repeat')!;
+    const waterBankRightPattern = context.createPattern(waterBankRight, 'repeat')!;
+    const waterBankBottomPattern = context.createPattern(waterBankBottom, 'repeat')!;
+    const waterBankLeftPattern = context.createPattern(waterBankLeft, 'repeat')!;
+
+    function waterBankDrawConfiguration(i: number){
+        const l = area[i];
+        const lNext = area[(i + 1) % area.length];
+        
+        const prevIndex = (i - 1) % area.length + (i == 0 ? area.length : 0);
+        const lPrev = area[prevIndex];
+    
+        const lLength = lineLength(l);
+    
+        if(lPrev.normal == Left && l.normal == Up && lNext.normal == Left){
+            return {
+                cornerImg:waterBankTopLeftConvex,
+                bankImg:waterBankTopPattern,
+                cornerPosX: l.x1 + 0,
+                cornerPosY: l.y1 + 0,
+                bankPosX: l.x1 + 16,
+                bankPosY: l.y1 + 0,
+                bankWidth: lLength - 16,
+                bankHeight: 16
+            }
+        } 
+        else if(lPrev.normal == Up && l.normal == Left && lNext.normal == Up){
+            return {
+                cornerImg:waterBankBottomRightConcave,
+                bankImg:waterBankLeftPattern,
+                cornerPosX: l.x1 + 0,
+                cornerPosY: l.y1 + 0,
+                bankPosX: l.x2 + 0,
+                bankPosY: l.y2 + 16,
+                bankWidth: 16,
+                bankHeight: lLength - 16
+            }
+        }
+        else if(lPrev.normal == Left && l.normal == Up && lNext.normal == Right){
+            return {
+                cornerImg:waterBankTopLeftConvex,
+                bankImg:waterBankTopPattern,
+                cornerPosX: l.x1 + 0,
+                cornerPosY: l.y1 + 0,
+                bankPosX: l.x1 + 16,
+                bankPosY: l.y1 + 0,
+                bankWidth: lLength - 32,
+                bankHeight: 16
+            }
+        }
+        else if(lPrev.normal == Up && l.normal == Right && lNext.normal == Up){
+            return {
+                cornerImg:waterBankTopRightConvex,
+                bankImg:waterBankRightPattern,
+                cornerPosX: l.x1 - 16,
+                cornerPosY: l.y1 + 0,
+                bankPosX: l.x1 - 16,
+                bankPosY: l.y1 + 16,
+                bankWidth: 16,
+                bankHeight: lLength - 16
+            }
+        }
+        else if(lPrev.normal == Right && l.normal == Up && lNext.normal == Right){
+            return {
+                cornerImg:waterBankBottomLeftConcave,
+                bankImg:waterBankTopPattern,
+                cornerPosX: l.x1 - 16,
+                cornerPosY: l.y1 + 0,
+                bankPosX: l.x1 + 0,
+                bankPosY: l.y1 + 0,
+                bankWidth: lLength - 16,
+                bankHeight: 16
+            }
+        }
+        else if(lPrev.normal == Up && l.normal == Right && lNext.normal == Down){
+            return {
+                cornerImg: waterBankTopRightConvex,
+                bankImg: waterBankRightPattern,
+                cornerPosX: l.x1 - 16,
+                cornerPosY: l.y1 + 0,
+                bankPosX: l.x1 - 16,
+                bankPosY: l.y1 + 16,
+                bankWidth: 16,
+                bankHeight: lLength - 32
+            }
+        }
+        else if(lPrev.normal == Right && l.normal == Down && lNext.normal == Right){
+            return {
+                cornerImg: waterBankBottomRightConvex,
+                bankImg: waterBankBottomPattern,
+                cornerPosX: l.x1 - 16,
+                cornerPosY: l.y1 - 16,
+                bankPosX: l.x2 + 0,
+                bankPosY: l.y2 - 16,
+                bankWidth: lLength - 16,
+                bankHeight: 16
+            }
+        }
+        else if(lPrev.normal == Down && l.normal == Right && lNext.normal == Down){
+            return {
+                cornerImg: waterBankTopLeftConcave,
+                bankImg: waterBankRightPattern,
+                cornerPosX: l.x1 - 16,
+                cornerPosY: l.y1 - 16,
+                bankPosX: l.x1 - 16,
+                bankPosY: l.y1 + 0,
+                bankWidth: 16,
+                bankHeight: lLength - 16
+            }
+        }
+        else if(lPrev.normal == Right && l.normal == Down && lNext.normal == Left){
+            return {
+                cornerImg: waterBankBottomRightConvex,
+                bankImg: waterBankBottomPattern,
+                cornerPosX: l.x1 - 16,
+                cornerPosY: l.y1 - 16,
+                bankPosX: l.x2 + 16,
+                bankPosY: l.y2 - 16,
+                bankWidth: lLength - 32,
+                bankHeight: 16
+            }
+        }
+        else if(lPrev.normal == Down && l.normal == Left && lNext.normal == Down){
+            return {
+                cornerImg: waterBankBottomLeftConvex,
+                bankImg: waterBankLeftPattern,
+                cornerPosX: l.x1 + 0,
+                cornerPosY: l.y1 - 16,
+                bankPosX: l.x2 + 0,
+                bankPosY: l.y2 + 0,
+                bankWidth: 16,
+                bankHeight: lLength - 16
+            }
+        }
+        else if(lPrev.normal == Left && l.normal == Down && lNext.normal == Left){
+            return {
+                cornerImg: waterBankTopRightConcave,
+                bankImg: waterBankBottomPattern,
+                cornerPosX: l.x1 + 0,
+                cornerPosY: l.y1 - 16,
+                bankPosX: l.x2 + 16,
+                bankPosY: l.y2 - 16,
+                bankWidth: lLength - 16,
+                bankHeight: 16
+            }
+        } else { //lPrev.normal == Down && l.normal == Left && lNext.normal == Up
+            return {
+                cornerImg: waterBankBottomLeftConvex,
+                bankImg: waterBankLeftPattern,
+                cornerPosX: l.x1 + 0,
+                cornerPosY: l.y1 - 16,
+                bankPosX: l.x2 + 0,
+                bankPosY: l.y2 + 16,
+                bankWidth: 16,
+                bankHeight: lLength - 32
+            }
+        }        
+    }
+
     // Draw grass
     context.beginPath();
 
@@ -56,62 +211,13 @@ function drawArea(
     context.fillStyle = grassPattern;
     context.fill();
 
-    const waterBankTopPattern = context.createPattern(waterBankTop, 'repeat')!;
-    const waterBankRightPattern = context.createPattern(waterBankRight, 'repeat')!;
-    const waterBankBottomPattern = context.createPattern(waterBankBottom, 'repeat')!;
-    const waterBankLeftPattern = context.createPattern(waterBankLeft, 'repeat')!;
-
-    // Draw waterbank
+    // Draw waterbanks
     for (let i = 0; i < area.length; i++) {
-        const l = area[i];
-        const lNext = area[(i + 1) % area.length];
-        const lLength = lineLength(l);
-        const prevIndex = (i - 1) % area.length + (i == 0 ? area.length : 0);
+        const x = waterBankDrawConfiguration(i);
 
-        const pPrev = area[prevIndex];
-
-        if (l.normal == Up) {
-            context.fillStyle = waterBankTopPattern;
-            context.fillRect(l.x1 + 16, l.y1, lLength - 32, 16);
-        }
-        else if (l.normal == Right) {
-            context.fillStyle = waterBankRightPattern;
-            context.fillRect(l.x1 - 16, l.y1 + 16, 16, lLength - 32);
-        }
-        else if (l.normal == Down) {
-            context.fillStyle = waterBankBottomPattern;
-            context.fillRect(l.x1 + 16, l.y1 - 16, lLength - 32, 16);
-        }
-        else if (l.normal == Left) {
-            context.fillStyle = waterBankLeftPattern;
-            context.fillRect(l.x1, l.y1 + 16, 16, lLength- 32);
-        }
-
-        // const diffPrev = subtract(p, pPrev);
-        // if (diffPrev.x > 0 && diffNext.y > 0) {
-        //     context.drawImage(waterBankTopRightConvex, p.x - 16, p.y);
-        // }
-        // else if ((diffPrev.y > 0 && diffNext.x < 0)) {
-        //     context.drawImage(waterBankBottomRightConvex, p.x - 16, p.y - 16);
-        // }
-        // else if (diffPrev.x < 0 && diffNext.y < 0) {
-        //     context.drawImage(waterBankBottomLeftConvex, p.x, p.y - 16);
-        // }
-        // else if (diffPrev.y < 0 && diffNext.x > 0) {
-        //     context.drawImage(waterBankTopLeftConvex, p.x, p.y);
-        // } 
-        // else if (diffPrev.x > 0 && diffNext.y < 0) {
-        //     context.drawImage(waterBankBottomRightConcave, p.x - 16, p.y );
-        // } 
-        // else if (diffPrev.x < 0 && diffNext.y > 0) {
-        //     context.drawImage(waterBankTopLeftConcave, p.x - 16 , p.y - 16 );
-        // } 
-        // else if (diffPrev.y > 0 && diffNext.x > 0) {
-        //     context.drawImage(waterBankBottomLeftConcave, p.x - 16 , p.y);
-        // }
-        // else if (diffPrev.y < 0 && diffNext.x < 0) {
-        //     context.drawImage(waterBankTopRightConcave, p.x , p.y - 16);
-        // }
+        context.fillStyle = x.bankImg;
+        context.fillRect(x.bankPosX, x.bankPosY, x.bankWidth, x.bankHeight);
+        context.drawImage(x.cornerImg, x.cornerPosX, x.cornerPosY);
     }
 }
 

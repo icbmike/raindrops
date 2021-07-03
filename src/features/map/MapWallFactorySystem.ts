@@ -1,7 +1,7 @@
 import { StartAction } from "../../dooble/action";
 import { findComponents } from "../../dooble/GameEntity";
 import { on } from "../../dooble/system";
-import { lineLength } from "../../physics/line";
+import { lineLength } from "../../physics/Line";
 import { Down, Up } from "../../physics/vector";
 import { Wall } from "../wall/wall";
 import { MapComponent } from "./MapComponent";
